@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "651011193231",
+    "project_id": "kiet-olx",
+    "storage_bucket": "kiet-olx.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:651011193231:android:9ed1a24baa3507bc2e73fa",
+        "android_client_info": {
+          "package_name": "com.example.kiet_olx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "651011193231-a8jp57dntoa023gn0v4bt2qnefflp4rp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy3jDIVCRsoO7ohNMbrWMs2FJofjK7-bU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "651011193231-a8jp57dntoa023gn0v4bt2qnefflp4rp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "651011193231-8h5of7ct9ofkoj41huf7cphck3igccsk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kietOlx"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

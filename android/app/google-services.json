@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "651011193231-cesd5ag8vhfon7hr27tofvudq0q5at0g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kiet_olx",
+            "certificate_hash": "c89ff9137f336131c02087a9a35e9af71094a458"
+          }
+        },
+        {
           "client_id": "651011193231-a8jp57dntoa023gn0v4bt2qnefflp4rp.apps.googleusercontent.com",
           "client_type": 3
         }

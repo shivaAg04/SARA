@@ -17,22 +17,80 @@ class UserScreen extends StatefulWidget {
 
 class _UserScreenState extends State<UserScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  Future<void> signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  // Future<void> signInWithGoogle() async {
+  //   // Trigger the authentication flow
+  //   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+  //   // Obtain the auth details from the request
+  //   final GoogleSignInAuthentication? googleAuth =
+  //       await googleUser?.authentication;
 
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+  //   // Create a new credential
+  //   final credential = GoogleAuthProvider.credential(
+  //     accessToken: googleAuth?.accessToken,
+  //     idToken: googleAuth?.idToken,
+  //   );
 
-    // Once signed in, return the UserCredential
-    await FirebaseAuth.instance.signInWithCredential(credential);
+  //   // Once signed in, return the UserCredential
+  //   await FirebaseAuth.instance.signInWithCredential(credential);
+  // }
+
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  // signInwithGoogle() async {
+  //   print("///////////////");
+  //   try {
+  //     print("///e////////////");
+  //     final GoogleSignInAccount? googleSignInAccount =
+  //         await _googleSignIn.signIn();
+
+  // if (googleSignInAccount!.email.contains("kiet.edu")) {
+  //   final GoogleSignInAuthentication googleSignInAuthentication =
+  //       await googleSignInAccount.authentication;
+  //   final AuthCredential credential = GoogleAuthProvider.credential(
+  //       accessToken: googleSignInAuthentication.accessToken,
+  //       idToken: googleSignInAuthentication.idToken);
+
+  //   await FirebaseAuth.instance.signInWithCredential(credential);
+  // } else {
+  //   return "shiva";
+  // }
+
+  //     // final GoogleSignInAuthentication googleSignInAuthentication =
+  //     //     await googleSignInAccount!.authentication;
+  //     // final AuthCredential credential = GoogleAuthProvider.credential(
+  //     //   accessToken: googleSignInAuthentication.accessToken,
+  //     //   idToken: googleSignInAuthentication.idToken,
+  //     // );
+  //     // await _auth.signInWithCredential(credential);
+  //   } on FirebaseAuthException catch (e) {
+  //     print(e.message);
+  //     rethrow;
+  //   }
+  //   print("lastttttttt");
+  // }
+
+  googleLogin() async {
+    print("googleLogin method Called");
+
+    try {
+      var reslut = await _googleSignIn.signIn();
+      if (reslut == null) {
+        return;
+      }
+
+      final userData = await reslut.authentication;
+      final credential = GoogleAuthProvider.credential(
+          accessToken: userData.accessToken, idToken: userData.idToken);
+      var finalResult =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      print("Result $reslut");
+      print(reslut.displayName);
+      print(reslut.email);
+      print(reslut.photoUrl);
+    } catch (error) {
+      print(error);
+    }
   }
 
   // Future<void> signInWithGoogle() async {
@@ -101,9 +159,12 @@ class _UserScreenState extends State<UserScreen> {
     return Scaffold(
       body: Container(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const SizedBox(height: 35.0),
             Container(
+              alignment: Alignment.center,
               height: 400,
               child: Lottie.network(
                   "https://assets5.lottiefiles.com/private_files/lf30_1TcivY.json"),
@@ -139,7 +200,7 @@ class _UserScreenState extends State<UserScreen> {
 
             SizedBox(height: 20.0),
             SignInButton(Buttons.Google,
-                text: "Sign up with KIET MAIL ID", onPressed: signInWithGoogle)
+                text: "Sign up with KIET MAIL ID", onPressed: googleLogin)
           ],
         ),
       ),

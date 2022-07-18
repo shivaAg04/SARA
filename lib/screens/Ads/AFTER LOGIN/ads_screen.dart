@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/add_image.dart';
-import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/new_ads_screen.dart';
+import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/add_new_entry.dart';
 
 class AdsScreen extends StatelessWidget {
   const AdsScreen({Key? key}) : super(key: key);
@@ -9,14 +8,17 @@ class AdsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("MY ADS"),
+        title: Text(
+          "MY ADS",
+        ),
+        centerTitle: true,
         actions: [
           IconButton(
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: ((context) => AddImage()),
+                  builder: ((context) => const AddNewEntry()),
                 ),
               );
             },

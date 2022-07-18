@@ -27,7 +27,7 @@ class _CustomiseBottomNavigationBar
   final List<Widget> _screenWidget = [
     // AdsControlScreen(),
     AdsControlScreen(),
-    HomeScreen(),
+    const HomeScreen(),
     const MainUserScreen(),
   ];
 

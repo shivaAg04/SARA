@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kiet_olx/screens/bottom_navigation_bar.dart';
-import 'package:lottie/lottie.dart';
-
+c
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key}) : super(key: key);
 

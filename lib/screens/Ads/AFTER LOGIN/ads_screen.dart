@@ -8,7 +8,7 @@ class AdsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "MY ADS",
         ),
         centerTitle: true,
@@ -18,7 +18,7 @@ class AdsScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: ((context) => const AddNewEntry()),
+                  builder: ((context) => AddNewEntry()),
                 ),
               );
             },

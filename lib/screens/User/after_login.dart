@@ -129,13 +129,13 @@ class _AfterLogin extends State<AfterLogin> {
                 const SizedBox(
                   height: 50,
                 ),
-                RaisedButton(
-                  padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
+                ElevatedButton(
+                  // padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
                   onPressed: logout,
-                  color: Colors.orange,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
+                  // color: Colors.orange,
+                  // shape: RoundedRectangleBorder(
+                  //   borderRadius: BorderRadius.circular(20.0),
+                  // ),
                   child: const Text('Signout',
                       style: TextStyle(
                           color: Colors.white,

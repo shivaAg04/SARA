@@ -2,12 +2,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class AddNewEntry extends StatelessWidget {
-  AddNewEntry({Key? key}) : super(key: key);
+class EditedScreen extends StatelessWidget {
+  late final String oldTitle;
+  late final String oldDescription;
+  late final String oldPrice;
+  late final String id;
 
-  TextEditingController titlecontroller = TextEditingController();
-  TextEditingController pricecontroller = TextEditingController();
-  TextEditingController descriptioncontroller = TextEditingController();
+  late TextEditingController titlecontroller;
+  late TextEditingController pricecontroller;
+  late TextEditingController descriptioncontroller = TextEditingController();
+  EditedScreen(this.oldTitle, this.oldDescription, this.oldPrice, this.id,
+      {super.key}) {
+    titlecontroller = TextEditingController(text: oldTitle);
+    descriptioncontroller = TextEditingController(text: oldDescription);
+    pricecontroller = TextEditingController(text: oldPrice);
+  }
+
   final _formKey = GlobalKey<FormState>();
 
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
@@ -16,25 +26,23 @@ class AddNewEntry extends StatelessWidget {
 
   sendtoserver(
       String serverTitle, String serverPrice, String serverDescription) async {
-    String id = DateTime.now().toIso8601String();
     Map<String, dynamic> data = {
       "Title": serverTitle,
       "Price": serverPrice,
       "Description": serverDescription,
-      "Id": id
     };
 
     await _firebaseFirestore
         .collection(user!.email.toString())
         .doc(id)
-        .set(data);
+        .update(data);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("New Entry"),
+        title: Text("Editing Page"),
         centerTitle: true,
       ),
       body: Padding(
@@ -45,6 +53,7 @@ class AddNewEntry extends StatelessWidget {
             child: Column(
               children: [
                 TextFormField(
+                  controller: titlecontroller,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "enter value";
@@ -52,12 +61,11 @@ class AddNewEntry extends StatelessWidget {
                       return null;
                     }
                   },
-                  controller: titlecontroller,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Title',
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
@@ -86,7 +94,7 @@ class AddNewEntry extends StatelessWidget {
                   },
                   controller: descriptioncontroller,
                   maxLines: 5,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Description',
                   ),
                 ),
@@ -99,15 +107,12 @@ class AddNewEntry extends StatelessWidget {
                             pricecontroller.text, descriptioncontroller.text);
 
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Uploaded Data')),
+                          const SnackBar(content: Text('Updated Data')),
                         );
-                        titlecontroller.clear();
-                        pricecontroller.clear();
-                        descriptioncontroller.clear();
                         Navigator.pop(context);
                       }
                     },
-                    child: const Text('Submit'),
+                    child: const Text('Update'),
                   ),
                 ),
               ],

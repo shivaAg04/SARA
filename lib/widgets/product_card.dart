@@ -4,14 +4,24 @@ import 'package:kiet_olx/screens/home/product_detail_screen.dart';
 import '../screens/home/product_detail_screen.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({Key? key}) : super(key: key);
+  String title;
+  String price;
+  String picUrl;
+  String description;
+  String id;
+
+  ProductCard(this.title, this.price, this.picUrl, this.description, this.id,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: ((context) => ProductDetailScreen())));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: ((context) => ProductDetailScreen(
+                    title, price, picUrl, description, id))));
       },
       child: Card(
         child: Padding(
@@ -20,17 +30,17 @@ class ProductCard extends StatelessWidget {
             Image.network(
               cacheHeight: 300,
               cacheWidth: 400,
-              "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+              picUrl,
               fit: BoxFit.cover,
             ),
             const SizedBox(
               height: 4,
             ),
-            const Text("TITLE"),
+            Text(title),
             const SizedBox(
               height: 4,
             ),
-            const Text("PRICE"),
+            Text(price),
           ]),
         ),
       ),

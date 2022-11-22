@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
           Align(
             alignment: Alignment.topLeft,
             child: Text(
-              "   Browser Category",
+              "   Browse Category",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),

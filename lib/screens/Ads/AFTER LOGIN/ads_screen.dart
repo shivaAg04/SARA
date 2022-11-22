@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/add_new_entry.dart';
 import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/edited_screen.dart';
 
+import '../../../widgets/product_card.dart';
+
 class AdsScreen extends StatelessWidget {
   AdsScreen({Key? key}) : super(key: key);
 
@@ -12,8 +14,7 @@ class AdsScreen extends StatelessWidget {
   late User? user = _auth.currentUser;
 
   deleteProduct(String id) async {
-    print(id);
-    await _firebaseFirestore.collection(user!.email!).doc(id).delete();
+    await _firebaseFirestore.collection("Product").doc(id).delete();
   }
 
   @override
@@ -43,32 +44,17 @@ class AdsScreen extends StatelessWidget {
         builder: ((context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
             if (snapshot.hasData && snapshot.data != null) {
-              return ListView.builder(
+              return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (BuildContext context, int index) {
-                  Map<String, dynamic> userMAp =
-                      snapshot.data!.docs[index].data() as Map<String, dynamic>;
-                  return ListTile(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: ((context) => EditedScreen(
-                                userMAp["Title"],
-                                userMAp["Description"],
-                                userMAp["Price"],
-                                userMAp["Id"])),
-                          ),
-                        );
-                      },
-                      title: Text(userMAp["Title"]),
-                      subtitle: Text(userMAp["Price"]),
-                      trailing: IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            print(userMAp["Id"]);
-                            deleteProduct(userMAp["Id"]);
-                          }));
+                  Map<String, dynamic> userMAp = snapshot
+                      .data!.docs[snapshot.data!.docs.length - (index + 1)]
+                      .data() as Map<String, dynamic>;
+                  return ProductCard(userMAp["Title"], userMAp["Price"] + "₹",
+                      userMAp["Pic"], userMAp["Description"], userMAp["Id"]);
                 },
               );
             } else {

@@ -40,7 +40,7 @@ class AdsScreen extends StatelessWidget {
         ],
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection(user!.email!).snapshots(),
+        stream: FirebaseFirestore.instance.collection("Products").snapshots(),
         builder: ((context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
             if (snapshot.hasData && snapshot.data != null) {
@@ -53,8 +53,13 @@ class AdsScreen extends StatelessWidget {
                   Map<String, dynamic> userMAp = snapshot
                       .data!.docs[snapshot.data!.docs.length - (index + 1)]
                       .data() as Map<String, dynamic>;
-                  return ProductCard(userMAp["Title"], userMAp["Price"] + "₹",
-                      userMAp["Pic"], userMAp["Description"], userMAp["Id"]);
+                  return ProductCard(
+                      userMAp["Title"],
+                      userMAp["Price"] + "₹",
+                      userMAp["Pic"],
+                      userMAp["Description"],
+                      userMAp["Id"],
+                      userMAp["Category"]);
                 },
               );
             } else {

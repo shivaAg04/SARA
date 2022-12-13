@@ -2,26 +2,43 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class EditedScreen extends StatelessWidget {
+class EditedScreen extends StatefulWidget {
   late final String oldTitle;
   late final String oldDescription;
   late final String oldPrice;
   late final String id;
+  late final String Category;
 
   late TextEditingController titlecontroller;
   late TextEditingController pricecontroller;
   late TextEditingController descriptioncontroller = TextEditingController();
-  EditedScreen(this.oldTitle, this.oldDescription, this.oldPrice, this.id,
+  EditedScreen(
+      this.oldTitle, this.oldDescription, this.oldPrice, this.id, this.Category,
       {super.key}) {
     titlecontroller = TextEditingController(text: oldTitle);
     descriptioncontroller = TextEditingController(text: oldDescription);
     pricecontroller = TextEditingController(text: oldPrice);
   }
 
+  @override
+  State<EditedScreen> createState() => _EditedScreenState();
+}
+
+class _EditedScreenState extends State<EditedScreen> {
+  List dropDownListData = [
+    {"title": "SPORTS", "value": "SPORTS"},
+    {"title": "STATIONARY", "value": "STATIONARY"},
+    {"title": "ELECTRICAL", "value": "ELECTRICAL"},
+    {"title": "OTHERS", "value": "OTHERS"},
+  ];
+
+  String selectedCategory = "";
   final _formKey = GlobalKey<FormState>();
 
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
   late User? user = _auth.currentUser;
 
   sendtoserver(
@@ -30,11 +47,12 @@ class EditedScreen extends StatelessWidget {
       "Title": serverTitle,
       "Price": serverPrice,
       "Description": serverDescription,
+      "Category": selectedCategory
     };
 
     await _firebaseFirestore
         .collection(user!.email.toString())
-        .doc(id)
+        .doc(widget.id)
         .update(data);
   }
 
@@ -53,7 +71,7 @@ class EditedScreen extends StatelessWidget {
             child: Column(
               children: [
                 TextFormField(
-                  controller: titlecontroller,
+                  controller: widget.titlecontroller,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "enter value";
@@ -76,13 +94,46 @@ class EditedScreen extends StatelessWidget {
                       return null;
                     }
                   },
-                  controller: pricecontroller,
+                  controller: widget.pricecontroller,
                   decoration: InputDecoration(
                     labelText: 'Price',
                   ),
                 ),
                 SizedBox(
                   height: 20,
+                ),
+                InputDecorator(
+                  decoration: const InputDecoration(
+                    // border: OutlineInputBorder(
+                    //     borderRadius: BorderRadius.circular(15.0)),
+                    contentPadding: EdgeInsets.all(10),
+                  ),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      value: selectedCategory,
+                      isDense: true,
+                      isExpanded: true,
+                      menuMaxHeight: 350,
+                      items: [
+                        DropdownMenuItem(
+                            value: "",
+                            child: Text(
+                              widget.Category,
+                            )),
+                        ...dropDownListData.map<DropdownMenuItem<String>>((e) {
+                          return DropdownMenuItem(
+                              child: Text(e['title']), value: e['value']);
+                        }).toList(),
+                      ],
+                      onChanged: (newValue) {
+                        setState(
+                          () {
+                            selectedCategory = newValue!;
+                          },
+                        );
+                      },
+                    ),
+                  ),
                 ),
                 TextFormField(
                   validator: (value) {
@@ -92,7 +143,7 @@ class EditedScreen extends StatelessWidget {
                       return null;
                     }
                   },
-                  controller: descriptioncontroller,
+                  controller: widget.descriptioncontroller,
                   maxLines: 5,
                   decoration: const InputDecoration(
                     labelText: 'Description',
@@ -103,8 +154,10 @@ class EditedScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        await sendtoserver(titlecontroller.text,
-                            pricecontroller.text, descriptioncontroller.text);
+                        await sendtoserver(
+                            widget.titlecontroller.text,
+                            widget.pricecontroller.text,
+                            widget.descriptioncontroller.text);
 
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Updated Data')),

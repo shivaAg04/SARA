@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/edited_screen.dart';
 
-class ProductDetailScreen extends StatelessWidget {
+class FreshDetailScreen extends StatelessWidget {
   String title;
   String price;
   String pic;
@@ -11,8 +11,8 @@ class ProductDetailScreen extends StatelessWidget {
   String id;
   String Category;
 
-  ProductDetailScreen(this.title, this.price, this.pic, this.description,
-      this.id, this.Category,
+  FreshDetailScreen(this.title, this.price, this.pic, this.description, this.id,
+      this.Category,
       {super.key});
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -63,28 +63,6 @@ class ProductDetailScreen extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-            Row(children: [
-              IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: ((context) => EditedScreen(
-                            title, description, price, id, Category)),
-                      ),
-                    );
-                  },
-                  icon: Icon(Icons.edit)),
-              IconButton(
-                  icon: Icon(
-                    Icons.delete,
-                    color: Color.fromARGB(255, 255, 17, 0),
-                  ),
-                  onPressed: () {
-                    deleteProduct(id);
-                    Navigator.pop(context);
-                  }),
-            ])
           ],
         ),
       ),

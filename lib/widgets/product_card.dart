@@ -9,8 +9,10 @@ class ProductCard extends StatelessWidget {
   String picUrl;
   String description;
   String id;
+  String Category;
 
   ProductCard(this.title, this.price, this.picUrl, this.description, this.id,
+      this.Category,
       {super.key});
 
   @override
@@ -18,10 +20,12 @@ class ProductCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: ((context) => ProductDetailScreen(
-                    title, price, picUrl, description, id))));
+          context,
+          MaterialPageRoute(
+            builder: ((context) => ProductDetailScreen(
+                title, price, picUrl, description, id, Category)),
+          ),
+        );
       },
       child: Card(
         child: Padding(

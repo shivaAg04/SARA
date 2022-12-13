@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:kiet_olx/widgets/categories_button.dart';
 import 'package:kiet_olx/widgets/category_row.dart';
-import 'package:kiet_olx/widgets/products_column.dart';
+import 'package:kiet_olx/FreshlyRecommendation/products_column.dart';
 
 import '../../widgets/search_bar.dart';
 

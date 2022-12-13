@@ -15,6 +15,14 @@ class AddNewEntry extends StatefulWidget {
 }
 
 class _AddNewEntryState extends State<AddNewEntry> {
+  List dropDownListData = [
+    {"title": "SPORTS", "value": "SPORTS"},
+    {"title": "STATIONARY", "value": "STATIONARY"},
+    {"title": "ELECTRICAL", "value": "ELECTRICAL"},
+    {"title": "OTHERS", "value": "OTHERS"},
+  ];
+
+  String selectedCategory = "";
   TextEditingController titlecontroller = TextEditingController();
 
   TextEditingController pricecontroller = TextEditingController();
@@ -48,12 +56,13 @@ class _AddNewEntryState extends State<AddNewEntry> {
       "Price": serverPrice,
       "Description": serverDescription,
       "Id": id,
-      "Pic": downloadUrl
+      "Pic": downloadUrl,
+      "Category": selectedCategory
     };
 
     await _firebaseFirestore
-        .collection(user!.email.toString())
-        .doc(id)
+        .collection("Products")
+        .doc(user!.email! + id)
         .set(data);
   }
 
@@ -71,6 +80,7 @@ class _AddNewEntryState extends State<AddNewEntry> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                // IMAGE CAPTURE
                 InkWell(
                   onTap: () async {
                     XFile? selectedImage = await ImagePicker()
@@ -92,6 +102,7 @@ class _AddNewEntryState extends State<AddNewEntry> {
                         : Icon(Icons.camera),
                   ),
                 ),
+                // TITLE
                 TextFormField(
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -108,6 +119,7 @@ class _AddNewEntryState extends State<AddNewEntry> {
                 SizedBox(
                   height: 20,
                 ),
+                //PRICE
                 TextFormField(
                   keyboardType: TextInputType.number,
                   validator: (value) {
@@ -118,12 +130,45 @@ class _AddNewEntryState extends State<AddNewEntry> {
                     }
                   },
                   controller: pricecontroller,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Price',
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
+                ),
+                InputDecorator(
+                  decoration: const InputDecoration(
+                    // border: OutlineInputBorder(
+                    //     borderRadius: BorderRadius.circular(15.0)),
+                    contentPadding: EdgeInsets.all(10),
+                  ),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      value: selectedCategory,
+                      isDense: true,
+                      isExpanded: true,
+                      menuMaxHeight: 350,
+                      items: [
+                        const DropdownMenuItem(
+                            value: "",
+                            child: Text(
+                              "Select Category",
+                            )),
+                        ...dropDownListData.map<DropdownMenuItem<String>>((e) {
+                          return DropdownMenuItem(
+                              child: Text(e['title']), value: e['value']);
+                        }).toList(),
+                      ],
+                      onChanged: (newValue) {
+                        setState(
+                          () {
+                            selectedCategory = newValue!;
+                          },
+                        );
+                      },
+                    ),
+                  ),
                 ),
                 TextFormField(
                   validator: (value) {
@@ -135,7 +180,7 @@ class _AddNewEntryState extends State<AddNewEntry> {
                   },
                   controller: descriptioncontroller,
                   maxLines: 5,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Description',
                   ),
                 ),
@@ -143,7 +188,9 @@ class _AddNewEntryState extends State<AddNewEntry> {
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: ElevatedButton(
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
+                      if (_formKey.currentState!.validate() &&
+                          selectedCategory != "" &&
+                          downloadUrl != "") {
                         setState(() {
                           isuploaded = false;
                         });
@@ -160,8 +207,8 @@ class _AddNewEntryState extends State<AddNewEntry> {
                       }
                     },
                     child: isuploaded == true
-                        ? Text('Submit')
-                        : CircularProgressIndicator(
+                        ? const Text('Submit')
+                        : const CircularProgressIndicator(
                             backgroundColor: Colors.black),
                   ),
                 ),

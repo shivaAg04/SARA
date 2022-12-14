@@ -28,6 +28,7 @@ class ProductCard extends StatelessWidget {
         );
       },
       child: Card(
+        color: Colors.orange,
         child: Padding(
           padding: EdgeInsets.all(5),
           child: Column(children: [
@@ -44,7 +45,7 @@ class ProductCard extends StatelessWidget {
             const SizedBox(
               height: 4,
             ),
-            Text(price),
+            Text(price + "₹"),
           ]),
         ),
       ),

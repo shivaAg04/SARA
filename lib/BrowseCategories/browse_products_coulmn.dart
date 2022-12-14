@@ -5,9 +5,11 @@ import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/add_new_entry.dart';
 import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/edited_screen.dart';
 
 import '../../../widgets/product_card.dart';
+import '../FreshlyRecommendation/fresh_recommendation_card.dart';
 
-class AdsScreen extends StatelessWidget {
-  AdsScreen({Key? key}) : super(key: key);
+class BrowswProductColumn extends StatelessWidget {
+  String CategoryName;
+  BrowswProductColumn(this.CategoryName);
 
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -17,28 +19,12 @@ class AdsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "MY ADS",
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: ((context) => AddNewEntry()),
-                ),
-              );
-            },
-            icon: Icon(Icons.add),
-          ),
-        ],
+        title: Text(CategoryName),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection("Products")
-            .where("Email", isEqualTo: user!.email!)
+            .where("Category", isEqualTo: CategoryName)
             .snapshots(),
         builder: ((context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
@@ -52,13 +38,14 @@ class AdsScreen extends StatelessWidget {
                   Map<String, dynamic> userMAp = snapshot
                       .data!.docs[snapshot.data!.docs.length - (index + 1)]
                       .data() as Map<String, dynamic>;
-                  return ProductCard(
+                  return FreshRecommendationCard(
                       userMAp["Title"],
-                      userMAp["Price"],
+                      userMAp["Price"] + "₹",
                       userMAp["Pic"],
                       userMAp["Description"],
                       userMAp["Id"],
-                      userMAp["Category"]);
+                      userMAp["Category"],
+                      userMAp["Email"]);
                 },
               );
             } else {

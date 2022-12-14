@@ -11,9 +11,10 @@ class FreshRecommendationCard extends StatelessWidget {
   String description;
   String id;
   String Category;
+  String Email;
 
   FreshRecommendationCard(this.title, this.price, this.picUrl, this.description,
-      this.id, this.Category,
+      this.id, this.Category, this.Email,
       {super.key});
 
   @override
@@ -24,11 +25,13 @@ class FreshRecommendationCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: ((context) => FreshDetailScreen(
-                title, price, picUrl, description, id, Category)),
+                title, price, picUrl, description, id, Category, Email)),
           ),
         );
       },
       child: Card(
+        elevation: 10,
+        color: Colors.orange,
         child: Padding(
           padding: EdgeInsets.all(5),
           child: Column(children: [
@@ -41,7 +44,10 @@ class FreshRecommendationCard extends StatelessWidget {
             const SizedBox(
               height: 4,
             ),
-            Text(title),
+            Text(
+              title,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(
               height: 4,
             ),

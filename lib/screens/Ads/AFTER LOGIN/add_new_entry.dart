@@ -57,7 +57,8 @@ class _AddNewEntryState extends State<AddNewEntry> {
       "Description": serverDescription,
       "Id": id,
       "Pic": downloadUrl,
-      "Category": selectedCategory
+      "Category": selectedCategory,
+      "Email": user!.email!,
     };
 
     await _firebaseFirestore

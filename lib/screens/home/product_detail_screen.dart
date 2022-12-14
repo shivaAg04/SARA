@@ -19,7 +19,10 @@ class ProductDetailScreen extends StatelessWidget {
   late User? user = _auth.currentUser;
 
   deleteProduct(String id) async {
-    await _firebaseFirestore.collection(user!.email!).doc(id).delete();
+    await _firebaseFirestore
+        .collection("Products")
+        .doc(user!.email! + id)
+        .delete();
   }
 
   @override
@@ -30,11 +33,8 @@ class ProductDetailScreen extends StatelessWidget {
         padding: const EdgeInsets.all(18.0),
         child: Column(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
-              ),
+            Card(
+              color: Colors.orange,
               child: Image.network(
                 pic,
                 height: 250,
@@ -46,24 +46,35 @@ class ProductDetailScreen extends StatelessWidget {
               height: 10,
             ),
             Text(
-              " " + title + " ",
+              title,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
             ),
             SizedBox(
               height: 10,
             ),
             Text(
-              price,
+              "Price : " + price + "₹",
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(
               height: 10,
             ),
-            Text(description, textAlign: TextAlign.start),
             SizedBox(
-              height: 30,
+              height: 10,
             ),
-            Row(children: [
+            Container(
+              width: 300,
+              height: 300,
+              decoration: BoxDecoration(
+                border: Border.all(width: 5, color: Colors.orange),
+              ),
+              child: Text(
+                "  " + description,
+                style: TextStyle(fontSize: 15),
+                softWrap: true,
+              ),
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               IconButton(
                   onPressed: () {
                     Navigator.push(

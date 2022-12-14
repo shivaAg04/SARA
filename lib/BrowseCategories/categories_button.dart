@@ -1,7 +1,8 @@
 // import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:kiet_olx/screens/home/category_screen.dart';
+
+import 'browse_products_coulmn.dart';
 
 class CategoriesButton extends StatelessWidget {
   Color? chooseColor;
@@ -18,8 +19,11 @@ class CategoriesButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: ((context) => CategoryScreen())));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: ((context) => BrowswProductColumn(chooseText!)),
+            ));
       },
       child: Container(
         height: 100,

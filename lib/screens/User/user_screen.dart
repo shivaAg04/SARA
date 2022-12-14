@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:kiet_olx/Provider/authentication.dart';
+
 import 'package:kiet_olx/screens/User/after_login.dart';
 // import 'package:kiet_olx/screens/User/sign_in.dart';
 // import 'package:kiet_olx/screens/User/sign_up.dart';
@@ -74,20 +74,22 @@ class _UserScreenState extends State<UserScreen> {
     print("googleLogin method Called");
 
     try {
-      var reslut = await _googleSignIn.signIn();
-      if (reslut == null) {
+      var googleAc = await _googleSignIn.signIn();
+      if (googleAc == null) {
         return;
       }
-
-      final userData = await reslut.authentication;
+      // if (googleAc.email.endsWith("@kiet.edu")) {
+      //   final userData = await googleAc.authentication;
+      //   final credential = GoogleAuthProvider.credential(
+      //       accessToken: userData.accessToken, idToken: userData.idToken);
+      //   var finalResult =
+      //       await FirebaseAuth.instance.signInWithCredential(credential);
+      // }
+      final userData = await googleAc.authentication;
       final credential = GoogleAuthProvider.credential(
           accessToken: userData.accessToken, idToken: userData.idToken);
       var finalResult =
           await FirebaseAuth.instance.signInWithCredential(credential);
-      print("Result $reslut");
-      print(reslut.displayName);
-      print(reslut.email);
-      print(reslut.photoUrl);
     } catch (error) {
       print(error);
     }
@@ -166,8 +168,7 @@ class _UserScreenState extends State<UserScreen> {
             Container(
               alignment: Alignment.center,
               height: 400,
-              child: Lottie.network(
-                  "https://assets5.lottiefiles.com/private_files/lf30_1TcivY.json"),
+              child: Lottie.asset("assets/welcome.json"),
             ),
 //   child: const Image(
             //     image: NetworkImage(

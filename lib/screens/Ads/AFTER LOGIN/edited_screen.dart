@@ -51,8 +51,8 @@ class _EditedScreenState extends State<EditedScreen> {
     };
 
     await _firebaseFirestore
-        .collection(user!.email.toString())
-        .doc(widget.id)
+        .collection("Products")
+        .doc(user!.email.toString() + widget.id)
         .update(data);
   }
 
@@ -115,10 +115,10 @@ class _EditedScreenState extends State<EditedScreen> {
                       isExpanded: true,
                       menuMaxHeight: 350,
                       items: [
-                        DropdownMenuItem(
+                        const DropdownMenuItem(
                             value: "",
                             child: Text(
-                              widget.Category,
+                              "Select Category",
                             )),
                         ...dropDownListData.map<DropdownMenuItem<String>>((e) {
                           return DropdownMenuItem(
@@ -153,7 +153,8 @@ class _EditedScreenState extends State<EditedScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: ElevatedButton(
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
+                      if (_formKey.currentState!.validate() &&
+                          selectedCategory != "") {
                         await sendtoserver(
                             widget.titlecontroller.text,
                             widget.pricecontroller.text,

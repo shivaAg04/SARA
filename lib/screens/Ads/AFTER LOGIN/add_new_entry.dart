@@ -108,6 +108,9 @@ class _AddNewEntryState extends State<AddNewEntry> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "enter value";
+                    }
+                    if (value.length > 15) {
+                      return "Big length";
                     } else {
                       return null;
                     }
@@ -126,6 +129,9 @@ class _AddNewEntryState extends State<AddNewEntry> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "enter value";
+                    }
+                    if (5 > int.parse(value) || int.parse(value) > 5000) {
+                      return "price in range of 5 - 5000";
                     } else {
                       return null;
                     }

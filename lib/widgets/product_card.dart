@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kiet_olx/screens/home/product_detail_screen.dart';
+import 'package:kiet_olx/screens/Ads/home/product_detail_screen.dart';
 
-import '../screens/home/product_detail_screen.dart';
+import '../screens/Ads/home/product_detail_screen.dart';
 
 class ProductCard extends StatelessWidget {
   String title;

@@ -5,7 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:kiet_olx/screens/splash_screen.dart';
 import 'firebase_options.dart';
 
-import 'package:kiet_olx/screens/home/home_screen.dart';
+import 'package:kiet_olx/screens/Ads/home/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

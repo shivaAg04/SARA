@@ -7,7 +7,7 @@ import 'package:kiet_olx/FreshlyRecommendation/freshly_products_column.dart';
 import 'package:kiet_olx/SearchBar/search_bar.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../SearchBar/search_bar_icon.dart';
+import '../../../SearchBar/search_bar_icon.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);

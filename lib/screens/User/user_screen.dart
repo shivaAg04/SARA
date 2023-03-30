@@ -78,18 +78,20 @@ class _UserScreenState extends State<UserScreen> {
       if (googleAc == null) {
         return;
       }
-      if (googleAc.email.endsWith("@kiet.edu")) {
-        final userData = await googleAc.authentication;
-        final credential = GoogleAuthProvider.credential(
-            accessToken: userData.accessToken, idToken: userData.idToken);
+      // if (googleAc.email.endsWith("@kiet.edu")) {
+      //   final userData = await googleAc.authentication;
+      //   final credential = GoogleAuthProvider.credential(
+      //       accessToken: userData.accessToken, idToken: userData.idToken);
 
-        await FirebaseAuth.instance.signInWithCredential(credential);
-      }
-      // final userData = await googleAc.authentication;
-      // final credential = GoogleAuthProvider.credential(
-      //     accessToken: userData.accessToken, idToken: userData.idToken);
-      // var finalResult =
-      //     await FirebaseAuth.instance.signInWithCredential(credential);
+      //   await FirebaseAuth.instance.signInWithCredential(credential);
+      // } else {
+      //   dispose();
+      // }
+      final userData = await googleAc.authentication;
+      final credential = GoogleAuthProvider.credential(
+          accessToken: userData.accessToken, idToken: userData.idToken);
+      var finalResult =
+          await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (error) {
       print(error);
     }

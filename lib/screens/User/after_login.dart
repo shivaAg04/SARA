@@ -54,7 +54,7 @@ class _AfterLogin extends State<AfterLogin> {
 
   @override
   void initState() {
-    super.initState();
+    super.initState(); 
     // checkAuthentification();
     getUser();
   }

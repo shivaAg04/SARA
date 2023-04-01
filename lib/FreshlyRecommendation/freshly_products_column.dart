@@ -27,6 +27,8 @@ class FreshlyProductColumn extends StatelessWidget {
               ),
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (BuildContext context, int index) {
+                snapshot.data?.docs;
+
                 Map<String, dynamic> userMAp = snapshot
                     .data!.docs[snapshot.data!.docs.length - (index + 1)]
                     .data() as Map<String, dynamic>;

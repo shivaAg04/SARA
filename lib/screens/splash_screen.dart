@@ -69,13 +69,6 @@ class _SplashScreen extends State<SplashScreen> {
               ],
             ),
 
-            // Text(
-            //   " OLX KIET ",
-            //   style: GoogleFonts.lobster(
-            //       fontSize: 40,
-            //       color: Theme.of(context).primaryColor,
-            //          ),
-            // ),
             //
             Lottie.asset('assets/splash.json'),
             // SizedBox(height: 120),

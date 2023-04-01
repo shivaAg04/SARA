@@ -16,7 +16,6 @@ class _AdsControlScreenState extends State<AdsControlScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   checkAuthentification() async {
-    print("ADS SCREEN");
     _auth.authStateChanges().listen((user) {
       if (user != null) {
         setState(() {

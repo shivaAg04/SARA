@@ -3,10 +3,12 @@ import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/dropdown.dart';
 import 'package:kiet_olx/screens/bottom_navigation_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:kiet_olx/screens/splash_screen.dart';
+import 'chat_app/chat_home_screen.dart';
 import 'firebase_options.dart';
 
 import 'package:kiet_olx/screens/Ads/home/home_screen.dart';
 
+late Size mq;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -30,7 +32,8 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.orange,
       ),
       // home: DropDownHelper(),
-      home: SplashScreen(),
+      home: ChatHomeScreen(),
+      // home: SplashScreen(),
     );
   }
 }

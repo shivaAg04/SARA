@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kiet_olx/api/apis.dart';
+import 'package:kiet_olx/helper/dialogs.dart';
 
 // import 'package:kiet_olx/screens/User/sign_in.dart';
 // import 'package:kiet_olx/screens/User/sign_up.dart';
@@ -17,10 +20,12 @@ class UserScreen extends StatefulWidget {
 
 class _UserScreenState extends State<UserScreen> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-
   googleLogin() async {
+    Dialogs.showProgressBar(context);
     try {
+      await InternetAddress.lookup('google.com');
       var googleAc = await _googleSignIn.signIn();
+      Navigator.pop(context);
       if (googleAc == null) {
         return;
       }
@@ -29,15 +34,20 @@ class _UserScreenState extends State<UserScreen> {
         final credential = GoogleAuthProvider.credential(
             accessToken: userData.accessToken, idToken: userData.idToken);
 
-        await FirebaseAuth.instance.signInWithCredential(credential);
+        await FirebaseAuth.instance
+            .signInWithCredential(credential)
+            .then((value) => Navigator.pop(context));
         if ((await APIs.userExists() == false)) {
           await APIs.creatUser();
         }
       } else {
-        await _googleSignIn.disconnect();
+        await _googleSignIn
+            .disconnect()
+            .then((value) => Dialogs.showSnackBar(context, "Only KIET MAIL"));
       }
     } catch (error) {
-      print(error);
+      Dialogs.showSnackBar(context, "  No Internet");
+      Navigator.pop(context);
     }
   }
 

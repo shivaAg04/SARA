@@ -22,10 +22,13 @@ class _AfterLogin extends State<AfterLogin> {
   checkAuthentification() async {
     _auth.authStateChanges().listen((user) {
       if (user == null) {
-        Navigator.of(context).push(MaterialPageRoute(
+        Navigator.of(context).push(
+          MaterialPageRoute(
             builder: (context) => CustomiseBottomNavigationBar(
-                  iindex: 2,
-                )));
+              iindex: 2,
+            ),
+          ),
+        );
       }
     });
   }
@@ -54,7 +57,7 @@ class _AfterLogin extends State<AfterLogin> {
 
   @override
   void initState() {
-    super.initState(); 
+    super.initState();
     // checkAuthentification();
     getUser();
   }

@@ -66,7 +66,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                       }
                     },
                   )
-                : Text("Messages"),
+                : const Text("Messages"),
             centerTitle: true,
             actions: [
               IconButton(

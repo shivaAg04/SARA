@@ -6,7 +6,7 @@ import 'package:kiet_olx/screens/splash_screen.dart';
 import 'chat_app/chat_home_screen.dart';
 import 'firebase_options.dart';
 
-import 'package:kiet_olx/screens/Ads/home/home_screen.dart';
+import 'package:kiet_olx/screens/home/home_screen.dart';
 
 late Size mq;
 void main() async {
@@ -32,8 +32,9 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.orange,
       ),
       // home: DropDownHelper(),
-      home: ChatHomeScreen(),
-      // home: SplashScreen(),
+      // home: ChatHomeScreen(),
+      // home: BottomSheetWidget(),
+      home: SplashScreen(),
     );
   }
 }

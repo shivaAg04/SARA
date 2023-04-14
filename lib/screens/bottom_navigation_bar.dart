@@ -1,12 +1,14 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import 'package:kiet_olx/screens/Ads/ads_control_screen.dart';
-import 'package:kiet_olx/screens/User/after_login.dart';
+
 import 'package:kiet_olx/screens/User/main_user_screen.dart';
-import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/ads_screen.dart';
-import 'package:kiet_olx/screens/Ads/home/home_screen.dart';
-import 'package:kiet_olx/screens/User/user_screen.dart';
+
+import 'package:kiet_olx/screens/home/home_screen.dart';
+
+import 'home/home_screen_control.dart';
 
 class CustomiseBottomNavigationBar extends StatefulWidget {
   CustomiseBottomNavigationBar({Key? key, required this.iindex})
@@ -27,7 +29,7 @@ class _CustomiseBottomNavigationBar
   final List<Widget> _screenWidget = [
     // AdsControlScreen(),
     AdsControlScreen(),
-    HomeScreen(),
+    HomeControlScreen(),
     const MainUserScreen(),
   ];
 

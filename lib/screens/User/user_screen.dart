@@ -29,6 +29,7 @@ class _UserScreenState extends State<UserScreen> {
       if (googleAc == null) {
         return;
       }
+      // for kiet id only
       if (googleAc.email.endsWith("@kiet.edu")) {
         final userData = await googleAc.authentication;
         final credential = GoogleAuthProvider.credential(
@@ -45,6 +46,18 @@ class _UserScreenState extends State<UserScreen> {
             .disconnect()
             .then((value) => Dialogs.showSnackBar(context, "Only KIET MAIL"));
       }
+      ////////////////////////////
+      // for all gmail account
+      // final userData = await googleAc.authentication;
+      // final credential = GoogleAuthProvider.credential(
+      //     accessToken: userData.accessToken, idToken: userData.idToken);
+
+      // await FirebaseAuth.instance
+      //     .signInWithCredential(credential)
+      //     .then((value) => Navigator.pop(context));
+      // if ((await APIs.userExists() == false)) {
+      //   await APIs.creatUser();
+      ///////////////////
     } catch (error) {
       Dialogs.showSnackBar(context, "  No Internet");
       Navigator.pop(context);

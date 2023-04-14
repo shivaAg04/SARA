@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:kiet_olx/api/apis.dart';
 import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/ads_screen.dart';
 import 'package:kiet_olx/screens/Ads/BEFORE%20LOGIN/no_user_ads_screen.dart';
+import 'package:kiet_olx/screens/home/home_screen.dart';
+import 'package:kiet_olx/screens/home/home_without_login.dart';
 
-class AdsControlScreen extends StatefulWidget {
-  AdsControlScreen({Key? key}) : super(key: key);
+class HomeControlScreen extends StatefulWidget {
+  HomeControlScreen({Key? key}) : super(key: key);
 
   @override
-  State<AdsControlScreen> createState() => _AdsControlScreenState();
+  State<HomeControlScreen> createState() => _HomeControlScreenState();
 }
 
-class _AdsControlScreenState extends State<AdsControlScreen> {
+class _HomeControlScreenState extends State<HomeControlScreen> {
   bool isloggedin = false;
 
   checkAuthentification() async {
@@ -33,6 +35,6 @@ class _AdsControlScreenState extends State<AdsControlScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return isloggedin ? AdsScreen() : const NoUserAdsScreen();
+    return isloggedin ? HomeScreen() : const WithoutLoginHome();
   }
 }

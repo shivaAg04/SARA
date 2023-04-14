@@ -43,8 +43,11 @@ dependencies:
   google_sign_in: ^6.0.2 
    
   firebase_storage: ^11.1.0
+  image_picker: ^0.8.7+1
+  flutter_emoji: ^2.4.0
+  emoji_picker_flutter: ^1.5.4
 
-  image_picker: ^0.8.5+3
+   
   uuid: ^3.0.7
 
  

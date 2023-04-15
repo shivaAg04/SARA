@@ -19,51 +19,6 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
-  googleLogin() async {
-    Dialogs.showProgressBar(context);
-    try {
-      await InternetAddress.lookup('google.com');
-      var googleAc = await _googleSignIn.signIn();
-      Navigator.pop(context);
-      if (googleAc == null) {
-        return;
-      }
-      // for kiet id only
-      if (googleAc.email.endsWith("@kiet.edu")) {
-        final userData = await googleAc.authentication;
-        final credential = GoogleAuthProvider.credential(
-            accessToken: userData.accessToken, idToken: userData.idToken);
-
-        await FirebaseAuth.instance
-            .signInWithCredential(credential)
-            .then((value) => Navigator.pop(context));
-        if ((await APIs.userExists() == false)) {
-          await APIs.creatUser();
-        }
-      } else {
-        await _googleSignIn
-            .disconnect()
-            .then((value) => Dialogs.showSnackBar(context, "Only KIET MAIL"));
-      }
-      ////////////////////////////
-      // for all gmail account
-      // final userData = await googleAc.authentication;
-      // final credential = GoogleAuthProvider.credential(
-      //     accessToken: userData.accessToken, idToken: userData.idToken);
-
-      // await FirebaseAuth.instance
-      //     .signInWithCredential(credential)
-      //     .then((value) => Navigator.pop(context));
-      // if ((await APIs.userExists() == false)) {
-      //   await APIs.creatUser();
-      ///////////////////
-    } catch (error) {
-      Dialogs.showSnackBar(context, "  No Internet");
-      Navigator.pop(context);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +33,7 @@ class _UserScreenState extends State<UserScreen> {
               height: 400,
               child: Lottie.asset("assets/welcome.json"),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             RichText(
                 text: const TextSpan(
                     text: 'Welcome to ',
@@ -100,9 +55,11 @@ class _UserScreenState extends State<UserScreen> {
               style: TextStyle(color: Colors.black),
             ),
             const SizedBox(height: 30.0),
-            SizedBox(height: 20.0),
-            SignInButton(Buttons.Google,
-                text: "Sign up with KIET MAIL ID", onPressed: googleLogin)
+            const SizedBox(height: 20.0),
+            SignInButton(Buttons.Google, text: "Sign up with KIET MAIL ID",
+                onPressed: () {
+              APIs.googleLogin(context);
+            })
           ],
         ),
       ),

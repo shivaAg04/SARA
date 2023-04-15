@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/ads_screen.dart';
 import 'package:kiet_olx/screens/User/user_screen.dart';
-import 'package:kiet_olx/screens/bottom_navigation_bar.dart';
+import 'package:kiet_olx/screens/screen_controller/bottom_navigation_bar.dart';
 import 'package:lottie/lottie.dart';
 
 class AfterLogin extends StatefulWidget {

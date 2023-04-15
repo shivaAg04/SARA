@@ -8,7 +8,7 @@ import 'package:kiet_olx/screens/User/main_user_screen.dart';
 
 import 'package:kiet_olx/screens/home/home_screen.dart';
 
-import 'home/home_screen_control.dart';
+import '../home/home_screen_control.dart';
 
 class CustomiseBottomNavigationBar extends StatefulWidget {
   CustomiseBottomNavigationBar({Key? key, required this.iindex})

@@ -6,6 +6,7 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kiet_olx/chat_app/view_profile_screen.dart';
 import 'package:kiet_olx/model/chat_user.dart';
 
 import '../api/apis.dart';
@@ -123,10 +124,10 @@ class _ChatUserScreenState extends State<ChatUserScreen> {
   Widget _appBar() {
     return InkWell(
         onTap: () {
-          //   Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //           builder: (_) => ViewProfileScreen(user: widget.user)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => ViewProfileScreen(user: widget.user)));
         },
         child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             stream: APIs.getUserInfo(widget.user),
@@ -280,7 +281,15 @@ class _ChatUserScreenState extends State<ChatUserScreen> {
           MaterialButton(
             onPressed: () {
               if (_textController.text.isNotEmpty) {
-                APIs.sendMessage(widget.user, _textController.text, Type.text);
+                if (_list.isEmpty) {
+                  //on first message (add user to my_user collection of chat user)
+                  APIs.sendFirstMessage(
+                      widget.user, _textController.text, Type.text);
+                } else {
+                  //simply send message
+                  APIs.sendMessage(
+                      widget.user, _textController.text, Type.text);
+                }
                 _textController.text = '';
               }
             },

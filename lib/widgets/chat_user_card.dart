@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kiet_olx/chat_app/chat_screen.dart';
+import 'package:kiet_olx/widgets/profile_dialog.dart';
 
 import '../api/apis.dart';
 import '../helper/my_date_util.dart';
@@ -51,9 +52,9 @@ class _ChatUserCardState extends State<ChatUserCard> {
                 //user profile picture
                 leading: InkWell(
                   onTap: () {
-                    // showDialog(
-                    //     context: context,
-                    //     builder: (_) => ProfileDialog(user: widget.user));
+                    showDialog(
+                        context: context,
+                        builder: (_) => ProfileDialog(user: widget.user));
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(mq.height * .03),

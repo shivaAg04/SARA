@@ -1,18 +1,26 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart';
 import 'package:kiet_olx/model/chat_user.dart';
 
+import '../helper/dialogs.dart';
 import '../model/messages.dart';
 
 class APIs {
   static FirebaseAuth auth = FirebaseAuth.instance;
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
   static FirebaseStorage storage = FirebaseStorage.instance;
+
+  static GoogleSignIn googleSignIn = GoogleSignIn();
   static User get user => auth.currentUser!;
   static late ChatUser me;
   static Future<bool> userExists() async {
@@ -22,6 +30,165 @@ class APIs {
             .get())
         .exists;
   }
+
+// for getting messaging token
+  // for accessing firebase messaging (Push Notification)
+  static FirebaseMessaging fMessaging = FirebaseMessaging.instance;
+
+  // for getting firebase messaging token
+  static Future<void> getFirebaseMessagingToken() async {
+    await fMessaging.requestPermission();
+
+    await fMessaging.getToken().then((t) {
+      if (t != null) {
+        me.pushToken = t;
+      }
+    });
+  }
+
+  // for sending push notification
+  static Future<void> sendPushNotification(
+      ChatUser chatUser, String msg) async {
+    try {
+      final body = {
+        "to": chatUser.pushToken,
+        "notification": {
+          "title": me.name, //our name should be send
+          "body": msg,
+          // "android_channel_id": "chats"
+        },
+        // "data": {
+        //   "some_data": "User ID: ${me.id}",
+        // },
+      };
+
+      var res = await post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+          headers: {
+            HttpHeaders.contentTypeHeader: 'application/json',
+            HttpHeaders.authorizationHeader:
+                'key=AAAAQ0Bf7ZA:APA91bGd5IN5v43yedFDo86WiSuyTERjmlr4tyekbw_YW6JrdLFblZcbHdgjDmogWLJ7VD65KGgVbETS0Px7LnKk8NdAz4Z-AsHRp9WoVfArA5cNpfMKcjh_MQI-z96XQk5oIDUwx8D1'
+          },
+          body: jsonEncode(body));
+      print('Response status: ${res.statusCode}///////////////////////////');
+      print('//////////////////////Response body: ${res.body}');
+    } catch (e) {
+      // log('\nsendPushNotificationE: $e');
+    }
+  }
+// add chat user
+
+  // for adding an chat user for our conversation
+  static Future<bool> addChatUser(String email) async {
+    final data = await firestore
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get();
+
+    print('data: ${data.docs}');
+
+    if (data.docs.isNotEmpty && data.docs.first.id != user.uid) {
+      //user exists
+
+      print('user exists: ${data.docs.first.data()}');
+
+      firestore
+          .collection('users')
+          .doc(user.uid)
+          .collection('my_users')
+          .doc(data.docs.first.id)
+          .set({});
+
+      return true;
+    } else {
+      //user doesn't exists
+
+      return false;
+    }
+  }
+
+  // for getting id's of known users from firestore database
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getMyUsersId() {
+    return firestore
+        .collection('users')
+        .doc(user.uid)
+        .collection('my_users')
+        .snapshots();
+  }
+
+  // for adding an user to my user when first message is send
+  static Future<void> sendFirstMessage(
+      ChatUser chatUser, String msg, Type type) async {
+    await firestore
+        .collection('users')
+        .doc(chatUser.id)
+        .collection('my_users')
+        .doc(user.uid)
+        .set({}).then((value) => sendMessage(chatUser, msg, type));
+  }
+
+  // for getting all users from firestore database
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllUsers(
+      List<String> userIds) {
+    print('\nUserIds: $userIds');
+
+    return firestore
+        .collection('users')
+        .where('id',
+            whereIn: userIds.isEmpty
+                ? ['']
+                : userIds) //because empty list throws an error
+        // .where('id', isNotEqualTo: user.uid)
+        .snapshots();
+  }
+
+  // google login
+
+  static Future<void> googleLogin(BuildContext context) async {
+    Dialogs.showProgressBar(context);
+    try {
+      await InternetAddress.lookup('google.com');
+      var googleAc = await googleSignIn.signIn();
+      Navigator.pop(context);
+      if (googleAc == null) {
+        return;
+      }
+      // for kiet id only
+      // if (googleAc.email.endsWith("@kiet.edu")) {
+      //   final userData = await googleAc.authentication;
+      //   final credential = GoogleAuthProvider.credential(
+      //       accessToken: userData.accessToken, idToken: userData.idToken);
+
+      //   await FirebaseAuth.instance
+      //       .signInWithCredential(credential)
+      //       .then((value) => Navigator.pop(context));
+      //   if ((await APIs.userExists() == false)) {
+      //     await APIs.creatUser();
+      //   }
+      // } else {
+      //   await googleSignIn
+      //       .disconnect()
+      //       .then((value) => Dialogs.showSnackBar(context, "Only KIET MAIL"));
+      // }
+      ////////////////////////////
+      // for all gmail account
+      final userData = await googleAc.authentication;
+      final credential = GoogleAuthProvider.credential(
+          accessToken: userData.accessToken, idToken: userData.idToken);
+
+      await FirebaseAuth.instance
+          .signInWithCredential(credential)
+          .then((value) => Navigator.pop(context));
+      if ((await APIs.userExists() == false)) {
+        await APIs.creatUser();
+        ///////////////////
+      }
+    } catch (error) {
+      Dialogs.showSnackBar(context, "  No Internet");
+      Navigator.pop(context);
+    }
+  }
+
+  //////////////////////////////////////////////////
 
   static Future<void> creatUser() async {
     final time = DateTime.now().millisecondsSinceEpoch.toString();
@@ -45,6 +212,9 @@ class APIs {
     await firestore.collection('users').doc(user.uid).get().then((user) async {
       if (user.exists) {
         me = ChatUser.fromJson(user.data()!);
+        await getFirebaseMessagingToken();
+
+        APIs.updateActiveStatus(true);
       } else {
         await creatUser().then((value) => getSelfInfo());
       }
@@ -113,7 +283,10 @@ class APIs {
 
     final ref = firestore
         .collection('chats/${getConversationID(chatUser.id)}/messages/');
-    await ref.doc(time).set(message.toJson());
+    await ref.doc(time).set(message.toJson()).then((value) {
+      print("wwwffbwebfcbwefbcyuwefbuwecwefbcwuefbcuwef/wfnjkfnwkfnwfnfffbn");
+      sendPushNotification(chatUser, type == Type.text ? msg : "image");
+    });
   }
 
   // for getting specific user info
@@ -166,5 +339,25 @@ class APIs {
     //updating image in firestore database
     final imageUrl = await ref.getDownloadURL();
     await sendMessage(chatUser, imageUrl, Type.image);
+  }
+
+  //delete message
+  static Future<void> deleteMessage(Message message) async {
+    await firestore
+        .collection('chats/${getConversationID(message.toId)}/messages/')
+        .doc(message.sent)
+        .delete();
+
+    if (message.type == Type.image) {
+      await storage.refFromURL(message.msg).delete();
+    }
+  }
+
+  //update message
+  static Future<void> updateMessage(Message message, String updatedMsg) async {
+    await firestore
+        .collection('chats/${getConversationID(message.toId)}/messages/')
+        .doc(message.sent)
+        .update({'msg': updatedMsg});
   }
 }

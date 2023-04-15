@@ -6,6 +6,7 @@ import 'package:kiet_olx/BrowseCategories/category_row.dart';
 import 'package:kiet_olx/FreshlyRecommendation/freshly_products_column.dart';
 
 import 'package:kiet_olx/chat_app/chat_home_screen.dart';
+import 'package:kiet_olx/main.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../SearchBar/search_bar_icon.dart';
@@ -22,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    APIs.updateActiveStatus(true);
     APIs.getSelfInfo();
     //for updating user active status according to lifecycle events
     //resume -- active or online
@@ -42,20 +44,30 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    mq = MediaQuery.of(context).size;
     return Scaffold(
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 255, 187, 85),
               ),
               child: Lottie.asset('assets/menu.json'),
             ),
             ListTile(
-              title: const Text('Item 1'),
+              title: Row(
+                children: [
+                  const Icon(Icons.message, color: Colors.orange),
+                  SizedBox(
+                    width: mq.width * 0.04,
+                  ),
+                  const Text('Messages'),
+                ],
+              ),
               onTap: () {
+                Navigator.pop(context);
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => ChatHomeScreen()),
@@ -74,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
+        title: const Text(
           "OLX KIET",
         ),
         actions: [SearchBar()],
@@ -82,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         children: [
           // SearchBar(),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           const Align(

@@ -57,6 +57,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                     autofocus: true,
                     style: const TextStyle(fontSize: 19, letterSpacing: 0.5),
                     onChanged: (val) {
+                      _searchList.clear();
                       for (var i in _list) {
                         if (i.name.toLowerCase().contains(val.toLowerCase()) ||
                             i.email.toLowerCase().contains(val.toLowerCase())) {

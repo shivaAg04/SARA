@@ -46,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.white,
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -85,6 +86,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
         centerTitle: true,
         title: const Text(
           "OLX KIET",
@@ -97,11 +100,14 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 10,
           ),
-          const Align(
+          Align(
             alignment: Alignment.topLeft,
             child: Text(
               "   Browse Category",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: mq.height * 0.02),
             ),
           ),
           const SizedBox(
@@ -111,11 +117,14 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 15,
           ),
-          const Align(
+          Align(
             alignment: Alignment.topLeft,
             child: Text(
               "   Fresh Recommendations",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: mq.height * 0.02),
             ),
           ),
           const SizedBox(

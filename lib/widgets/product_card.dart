@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:kiet_olx/screens/home/product_detail_screen.dart';
 
+import '../main.dart';
 import '../screens/home/product_detail_screen.dart';
 
 class ProductCard extends StatelessWidget {
@@ -28,15 +30,17 @@ class ProductCard extends StatelessWidget {
         );
       },
       child: Card(
-        color: Colors.orange,
+        color: Colors.grey.shade100,
         child: Padding(
-          padding: EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
           child: Column(children: [
-            Image.network(
-              cacheHeight: 300,
-              cacheWidth: 400,
-              picUrl,
+            CachedNetworkImage(
+              width: mq.height * .18,
+              height: mq.width * .35,
+              imageUrl: picUrl,
               fit: BoxFit.cover,
+              placeholder: (context, url) => const Icon(Icons.image),
+              errorWidget: (context, url, error) => const Icon(Icons.image),
             ),
             const SizedBox(
               height: 4,
@@ -45,7 +49,7 @@ class ProductCard extends StatelessWidget {
             const SizedBox(
               height: 4,
             ),
-            Text(price + "₹"),
+            Text("₹ $price"),
           ]),
         ),
       ),

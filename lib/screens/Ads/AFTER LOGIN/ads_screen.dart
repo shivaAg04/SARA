@@ -17,8 +17,13 @@ class AdsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: Text(
           "MY ADS",
+          style: TextStyle(
+              color: Theme.of(context).primaryColor,
+              fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         actions: [
@@ -31,7 +36,10 @@ class AdsScreen extends StatelessWidget {
                 ),
               );
             },
-            icon: Icon(Icons.add),
+            icon: Icon(
+              Icons.add,
+              color: Theme.of(context).primaryColor,
+            ),
           ),
         ],
       ),

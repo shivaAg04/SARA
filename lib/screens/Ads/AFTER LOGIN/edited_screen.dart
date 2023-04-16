@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:kiet_olx/helper/dialogs.dart';
+import 'package:kiet_olx/main.dart';
 
 class EditedScreen extends StatefulWidget {
   late final String oldTitle;
@@ -40,7 +42,7 @@ class _EditedScreenState extends State<EditedScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   late User? user = _auth.currentUser;
-
+  bool _isUploading = false;
   sendtoserver(
       String serverTitle, String serverPrice, String serverDescription) async {
     Map<String, dynamic> data = {
@@ -60,7 +62,7 @@ class _EditedScreenState extends State<EditedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Editing Page"),
+        title: const Text("Editing Page"),
         centerTitle: true,
       ),
       body: Padding(
@@ -75,6 +77,9 @@ class _EditedScreenState extends State<EditedScreen> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "enter value";
+                    }
+                    if (value.length > 15) {
+                      return "Big length";
                     } else {
                       return null;
                     }
@@ -87,20 +92,24 @@ class _EditedScreenState extends State<EditedScreen> {
                   height: 20,
                 ),
                 TextFormField(
+                  keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "enter value";
+                    }
+                    if (5 > int.parse(value) || int.parse(value) > 5000) {
+                      return "price in range of 5 - 5000";
                     } else {
                       return null;
                     }
                   },
                   controller: widget.pricecontroller,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Price',
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: mq.height * 0.01,
                 ),
                 InputDecorator(
                   decoration: const InputDecoration(
@@ -116,10 +125,11 @@ class _EditedScreenState extends State<EditedScreen> {
                       menuMaxHeight: 350,
                       items: [
                         const DropdownMenuItem(
-                            value: "",
-                            child: Text(
-                              "Select Category",
-                            )),
+                          value: "",
+                          child: Text(
+                            "Select Category",
+                          ),
+                        ),
                         ...dropDownListData.map<DropdownMenuItem<String>>((e) {
                           return DropdownMenuItem(
                               child: Text(e['title']), value: e['value']);
@@ -139,12 +149,15 @@ class _EditedScreenState extends State<EditedScreen> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "enter value";
+                    }
+                    if (value.length > 200) {
+                      return "Big length";
                     } else {
                       return null;
                     }
                   },
+                  maxLines: null,
                   controller: widget.descriptioncontroller,
-                  maxLines: 5,
                   decoration: const InputDecoration(
                     labelText: 'Description',
                   ),
@@ -152,22 +165,34 @@ class _EditedScreenState extends State<EditedScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: ElevatedButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate() &&
-                          selectedCategory != "") {
-                        await sendtoserver(
-                            widget.titlecontroller.text,
-                            widget.pricecontroller.text,
-                            widget.descriptioncontroller.text);
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate() &&
+                            selectedCategory != "") {
+                          setState(() {
+                            _isUploading = !_isUploading;
+                          });
+                          await sendtoserver(
+                              widget.titlecontroller.text,
+                              widget.pricecontroller.text,
+                              widget.descriptioncontroller.text);
 
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Updated Data')),
-                        );
-                        Navigator.pop(context);
-                      }
-                    },
-                    child: const Text('Update'),
-                  ),
+                          Dialogs.showSnackBar(context, "Updated Successfully");
+
+                          Navigator.pop(context);
+                        }
+                      },
+                      child: _isUploading
+                          ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation(Colors.white),
+                                backgroundColor: Colors.black,
+                                strokeWidth: 3,
+                              ),
+                            )
+                          : const Text("Update")),
                 ),
               ],
             ),

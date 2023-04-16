@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:kiet_olx/api/apis.dart';
 import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/add_new_entry.dart';
 import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/edited_screen.dart';
 
@@ -10,9 +11,7 @@ import 'fresh_recommendation_card.dart';
 class FreshlyProductColumn extends StatelessWidget {
   FreshlyProductColumn({Key? key}) : super(key: key);
 
-  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  late User? user = _auth.currentUser;
+  late User? user = APIs.auth.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,7 @@ class FreshlyProductColumn extends StatelessWidget {
                     .data() as Map<String, dynamic>;
                 return FreshRecommendationCard(
                     userMAp["Title"],
-                    userMAp["Price"] + "₹",
+                    userMAp["Price"],
                     userMAp["Pic"],
                     userMAp["Description"],
                     userMAp["Id"],

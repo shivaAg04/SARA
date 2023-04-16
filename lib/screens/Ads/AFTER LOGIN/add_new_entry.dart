@@ -116,7 +116,7 @@ class _AddNewEntryState extends State<AddNewEntry> {
                     }
                   },
                   controller: titlecontroller,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Title',
                   ),
                 ),

@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/add_new_entry.dart';
 import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/edited_screen.dart';
 
+import '../../../api/apis.dart';
 import '../../../widgets/product_card.dart';
 
 class AdsScreen extends StatelessWidget {
   AdsScreen({Key? key}) : super(key: key);
 
-  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late User? user = _auth.currentUser;
 
@@ -44,10 +44,7 @@ class AdsScreen extends StatelessWidget {
         ],
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection("Products")
-            .where("Email", isEqualTo: user!.email!)
-            .snapshots(),
+        stream: APIs.getUserProducts(),
         builder: ((context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
             if (snapshot.hasData && snapshot.data != null) {
@@ -60,6 +57,7 @@ class AdsScreen extends StatelessWidget {
                   Map<String, dynamic> userMAp = snapshot
                       .data!.docs[snapshot.data!.docs.length - (index + 1)]
                       .data() as Map<String, dynamic>;
+
                   return ProductCard(
                       userMAp["Title"],
                       userMAp["Price"],

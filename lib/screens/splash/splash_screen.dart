@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kiet_olx/screens/screen_controller/bottom_navigation_bar.dart';
+import 'package:kiet_olx/screens/splash/start_login.dart';
 import 'package:lottie/lottie.dart';
+
+import '../../api/apis.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key}) : super(key: key);
@@ -16,15 +20,26 @@ class _SplashScreen extends State<SplashScreen> {
   void initState() {
     //set time to load the new page
     Future.delayed(Duration(seconds: 4), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => CustomiseBottomNavigationBar(
-            iindex: 1,
-          ),
-        ),
-      );
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+          systemNavigationBarColor: Colors.white,
+          statusBarColor: Colors.white));
+
+      if (APIs.auth.currentUser != null) {
+        //navigate to home screen
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (_) => CustomiseBottomNavigationBar(
+                      iindex: 1,
+                    )));
+      } else {
+        //navigate to login screen
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => const StartLogin()));
+      }
     });
+
     super.initState();
   }
 

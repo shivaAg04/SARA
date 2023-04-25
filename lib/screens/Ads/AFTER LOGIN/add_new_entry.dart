@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../api/apis.dart';
+
 class AddNewEntry extends StatefulWidget {
   AddNewEntry({Key? key}) : super(key: key);
 
@@ -41,7 +43,7 @@ class _AddNewEntryState extends State<AddNewEntry> {
   String? downloadUrl;
   bool isuploaded = true;
 
-  sendtoserver(
+  Future<void> sendtoserver(
       String serverTitle, String serverPrice, String serverDescription) async {
     String id = DateTime.now().toIso8601String();
     UploadTask uploadTask = FirebaseStorage.instance
@@ -51,6 +53,7 @@ class _AddNewEntryState extends State<AddNewEntry> {
         .putFile(mainPic!);
     TaskSnapshot taskSnapshot = await uploadTask;
     downloadUrl = await taskSnapshot.ref.getDownloadURL();
+    final time = DateTime.now().millisecondsSinceEpoch.toString();
     Map<String, dynamic> data = {
       "Title": serverTitle,
       "Price": serverPrice,
@@ -60,11 +63,8 @@ class _AddNewEntryState extends State<AddNewEntry> {
       "Category": selectedCategory,
       "Email": user!.email!,
     };
-
-    await _firebaseFirestore
-        .collection("Products")
-        .doc(user!.email! + id)
-        .set(data);
+    final ref = APIs.firestore.collection('products/${APIs.me.id}/items/');
+    await ref.doc(time).set(data);
   }
 
   @override
@@ -120,7 +120,7 @@ class _AddNewEntryState extends State<AddNewEntry> {
                     labelText: 'Title',
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 //PRICE
@@ -164,7 +164,9 @@ class _AddNewEntryState extends State<AddNewEntry> {
                             )),
                         ...dropDownListData.map<DropdownMenuItem<String>>((e) {
                           return DropdownMenuItem(
-                              child: Text(e['title']), value: e['value']);
+                            value: e['value'],
+                            child: Text(e['title']),
+                          );
                         }).toList(),
                       ],
                       onChanged: (newValue) {

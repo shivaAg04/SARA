@@ -1,9 +1,15 @@
+import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../api/apis.dart';
+import '../../helper/dialogs.dart';
+import '../screen_controller/bottom_navigation_bar.dart';
 
 class StartLogin extends StatefulWidget {
   const StartLogin({super.key});
@@ -13,6 +19,77 @@ class StartLogin extends StatefulWidget {
 }
 
 class _StartLoginState extends State<StartLogin> {
+  // handles google login button click
+  _handleGoogleBtnClick() {
+    //for showing progress bar
+    Dialogs.showProgressBar(context);
+
+    _signInWithGoogle().then((user) async {
+      //for hiding progress bar
+      Navigator.pop(context);
+
+      if (user != null) {
+        if ((await APIs.userExists())) {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => CustomiseBottomNavigationBar(
+                        iindex: 1,
+                      )));
+        } else {
+          await APIs.creatUser().then((value) {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => CustomiseBottomNavigationBar(
+                          iindex: 1,
+                        )));
+          });
+        }
+      }
+    });
+  }
+
+  Future<UserCredential?> _signInWithGoogle() async {
+    try {
+      await InternetAddress.lookup('google.com');
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      //////// normal gmail///////////
+      // final GoogleSignInAuthentication? googleAuth =
+      //     await googleUser!.authentication;
+
+      // // Create a new credential
+      // final credential = GoogleAuthProvider.credential(
+      //   accessToken: googleAuth?.accessToken,
+      //   idToken: googleAuth?.idToken,
+      // );
+      // return await APIs.auth.signInWithCredential(credential);
+      // Obtain the auth details from the request
+      if (googleUser!.email.endsWith("@kiet.edu")) {
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
+
+        // Create a new credential
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        return await APIs.auth.signInWithCredential(credential);
+      } else {
+        await GoogleSignIn().disconnect().then((value) {
+          Dialogs.showSnackBar(context, "Only KIET MAIL");
+          return null;
+        });
+      }
+
+      // Once signed in, return the UserCredential
+    } catch (e) {
+      Dialogs.showSnackBar(context, 'Something Went Wrong (Check Internet!)');
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +129,7 @@ class _StartLoginState extends State<StartLogin> {
             const SizedBox(height: 20.0),
             SignInButton(Buttons.Google, text: "Sign up with KIET MAIL ID",
                 onPressed: () {
-              APIs.googleLogin(context);
+              _handleGoogleBtnClick();
             })
           ],
         ),

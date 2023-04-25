@@ -4,13 +4,14 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart';
 import 'package:kiet_olx/model/chat_user.dart';
+import 'package:kiet_olx/model/products.dart';
 
 import '../helper/dialogs.dart';
 import '../model/messages.dart';
@@ -143,49 +144,52 @@ class APIs {
 
   // google login
 
-  static Future<void> googleLogin(BuildContext context) async {
+  static Future<OAuthCredential?> googleLogin(BuildContext context) async {
+    //show circular
     Dialogs.showProgressBar(context);
     try {
       await InternetAddress.lookup('google.com');
       var googleAc = await googleSignIn.signIn();
       Navigator.pop(context);
       if (googleAc == null) {
-        return;
+        return null;
       }
       // for kiet id only
-      // if (googleAc.email.endsWith("@kiet.edu")) {
-      //   final userData = await googleAc.authentication;
-      //   final credential = GoogleAuthProvider.credential(
-      //       accessToken: userData.accessToken, idToken: userData.idToken);
+      if (googleAc.email.endsWith("@kiet.edu")) {
+        final userData = await googleAc.authentication;
+        final credential = GoogleAuthProvider.credential(
+            accessToken: userData.accessToken, idToken: userData.idToken);
 
-      //   await FirebaseAuth.instance
-      //       .signInWithCredential(credential)
-      //       .then((value) => Navigator.pop(context));
-      //   if ((await APIs.userExists() == false)) {
-      //     await APIs.creatUser();
-      //   }
-      // } else {
-      //   await googleSignIn
-      //       .disconnect()
-      //       .then((value) => Dialogs.showSnackBar(context, "Only KIET MAIL"));
-      // }
+        await FirebaseAuth.instance
+            .signInWithCredential(credential)
+            .then((value) => Navigator.pop(context));
+        if ((await APIs.userExists() == false)) {
+          await APIs.creatUser();
+        }
+        return credential;
+      } else {
+        await googleSignIn.disconnect().then((value) {
+          Dialogs.showSnackBar(context, "Only KIET MAIL");
+          return null;
+        });
+      }
       ////////////////////////////
       // for all gmail account
-      final userData = await googleAc.authentication;
-      final credential = GoogleAuthProvider.credential(
-          accessToken: userData.accessToken, idToken: userData.idToken);
+      // final userData = await googleAc.authentication;
+      // final credential = GoogleAuthProvider.credential(
+      //     accessToken: userData.accessToken, idToken: userData.idToken);
 
-      await FirebaseAuth.instance
-          .signInWithCredential(credential)
-          .then((value) => Navigator.pop(context));
-      if ((await APIs.userExists() == false)) {
-        await APIs.creatUser();
-        ///////////////////
-      }
+      // await FirebaseAuth.instance
+      //     .signInWithCredential(credential)
+      //     .then((value) => Navigator.pop(context));
+      // if ((await APIs.userExists() == false)) {
+      //   await APIs.creatUser();
+      ///////////////////
     } catch (error) {
       Dialogs.showSnackBar(context, "  No Internet");
       Navigator.pop(context);
     }
+    return null;
   }
 
   //////////////////////////////////////////////////
@@ -266,6 +270,11 @@ class APIs {
         .snapshots();
   }
 
+// for getting the products of specific user
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getUserProducts() {
+    return firestore.collection('products/${user.uid}/items/').snapshots();
+  }
+
   // for sending message
   static Future<void> sendMessage(
       ChatUser chatUser, String msg, Type type) async {
@@ -284,7 +293,6 @@ class APIs {
     final ref = firestore
         .collection('chats/${getConversationID(chatUser.id)}/messages/');
     await ref.doc(time).set(message.toJson()).then((value) {
-      print("wwwffbwebfcbwefbcyuwefbuwecwefbcwuefbcuwef/wfnjkfnwkfnwfnfffbn");
       sendPushNotification(chatUser, type == Type.text ? msg : "image");
     });
   }
@@ -359,5 +367,35 @@ class APIs {
         .collection('chats/${getConversationID(message.toId)}/messages/')
         .doc(message.sent)
         .update({'msg': updatedMsg});
+  }
+
+  // sending Product
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllProducts(
+      ChatUser chatUser) {
+    return firestore.collection('products').snapshots();
+  }
+
+  // sending product
+
+  // for sending message
+  static Future<void> sendProduct(String email, String category, String title,
+      String pic, String description, String price) async {
+    //message sending time (also used as id)
+    final time = DateTime.now().millisecondsSinceEpoch.toString();
+
+    //message to send
+
+    final Products product = Products(
+        Email: email,
+        Category: category,
+        Description: description,
+        Price: price,
+        Title: title,
+        Pic: pic,
+        Id: me.id);
+
+    final ref = firestore.collection('products/${me.id}/items/');
+    await ref.doc(time).set(product.toJson());
   }
 }

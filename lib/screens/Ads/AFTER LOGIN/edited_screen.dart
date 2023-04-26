@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kiet_olx/helper/dialogs.dart';
 import 'package:kiet_olx/main.dart';
 
@@ -10,12 +11,13 @@ class EditedScreen extends StatefulWidget {
   late final String oldPrice;
   late final String id;
   late final String Category;
+  late final String sent;
 
   late TextEditingController titlecontroller;
   late TextEditingController pricecontroller;
   late TextEditingController descriptioncontroller = TextEditingController();
-  EditedScreen(
-      this.oldTitle, this.oldDescription, this.oldPrice, this.id, this.Category,
+  EditedScreen(this.oldTitle, this.oldDescription, this.oldPrice, this.id,
+      this.Category, this.sent,
       {super.key}) {
     titlecontroller = TextEditingController(text: oldTitle);
     descriptioncontroller = TextEditingController(text: oldDescription);
@@ -54,15 +56,44 @@ class _EditedScreenState extends State<EditedScreen> {
 
     await _firebaseFirestore
         .collection("Products")
-        .doc(user!.email.toString() + widget.id)
+        .doc(widget.sent)
         .update(data);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Editing Page"),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Stack(
+          children: [
+            // The text border
+            Text(
+              "Editing Page",
+              style: GoogleFonts.lobster(
+                fontSize: 20,
+                letterSpacing: 6,
+                fontWeight: FontWeight.bold,
+                foreground: Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = 5
+                  ..color = Colors.black,
+              ),
+            ),
+            // The text inside
+            Text(
+              "Editing Page",
+              style: GoogleFonts.lobster(
+                fontSize: 20,
+                letterSpacing: 6,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+          ],
+        ),
         centerTitle: true,
       ),
       body: Padding(

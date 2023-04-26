@@ -12,33 +12,37 @@ class CategooryRow extends StatelessWidget {
       child: Row(
         children: [
           CategoriesButton(
-              chooseColor: Color.fromARGB(255, 0, 255, 213),
-              chooseIcon: const Icon(
-                Icons.sports_esports_outlined,
-                color: Color.fromARGB(255, 0, 0, 0),
-              ),
-              chooseText: "SPORTS"),
+              chooseColor: Color.fromARGB(255, 143, 255, 147),
+              chooseIcon: "book",
+              chooseText: "Quantum"),
+          CategoriesButton(
+              chooseColor: Color.fromARGB(255, 255, 143, 143),
+              chooseIcon: "air-cooler",
+              chooseText: "Coolers"),
+          CategoriesButton(
+              chooseColor: Color.fromARGB(255, 117, 244, 255),
+              chooseIcon: "lab-coat",
+              chooseText: "Lab Coat"),
+          CategoriesButton(
+              chooseColor: Color.fromARGB(255, 103, 108, 255),
+              chooseIcon: "budget",
+              chooseText: "Calculators"),
+          CategoriesButton(
+              chooseColor: Color.fromARGB(255, 255, 252, 85),
+              chooseIcon: "sports",
+              chooseText: "Sports"),
           CategoriesButton(
               chooseColor: Color.fromARGB(255, 255, 0, 234),
-              chooseIcon: const Icon(
-                Icons.book,
-                color: Color.fromARGB(255, 0, 0, 0),
-              ),
-              chooseText: "STATIONARY"),
+              chooseIcon: "stationary",
+              chooseText: "Stationary"),
           CategoriesButton(
               chooseColor: Color.fromARGB(255, 46, 222, 72),
-              chooseIcon: const Icon(
-                Icons.electrical_services_rounded,
-                color: Color.fromARGB(255, 0, 0, 0),
-              ),
-              chooseText: "ELECTRICAL"),
+              chooseIcon: "electrical",
+              chooseText: "Electrical"),
           CategoriesButton(
               chooseColor: Color.fromARGB(255, 255, 188, 2),
-              chooseIcon: const Icon(
-                Icons.devices_other_sharp,
-                color: Color.fromARGB(255, 0, 0, 0),
-              ),
-              chooseText: "OTHERS"),
+              chooseIcon: "option",
+              chooseText: "Others"),
         ],
       ),
     );

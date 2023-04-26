@@ -15,6 +15,7 @@ class Products {
   late final String Title;
   late final String Pic;
   late final String Id;
+  late final String sent;
 
   Products.fromJson(Map<String, dynamic> json) {
     Email = json['Email'];
@@ -24,6 +25,7 @@ class Products {
     Title = json['Title'];
     Pic = json['Pic'];
     Id = json['Id'];
+    sent = json['sent'];
   }
 
   Map<String, dynamic> toJson() {
@@ -35,6 +37,7 @@ class Products {
     _data['Title'] = Title;
     _data['Pic'] = Pic;
     _data['Id'] = Id;
+    _data['sent'] = sent;
     return _data;
   }
 }

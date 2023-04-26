@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
@@ -58,20 +59,50 @@ class _AddNewEntryState extends State<AddNewEntry> {
       "Title": serverTitle,
       "Price": serverPrice,
       "Description": serverDescription,
-      "Id": id,
+      "Id": user!.uid,
       "Pic": downloadUrl,
       "Category": selectedCategory,
       "Email": user!.email!,
+      "sent": time
     };
-    final ref = APIs.firestore.collection('products/${APIs.me.id}/items/');
+    final ref = APIs.firestore.collection('Products');
     await ref.doc(time).set(data);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("New Entry"),
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: Stack(
+          children: [
+            // The text border
+            Text(
+              'New Entry',
+              style: GoogleFonts.lobster(
+                fontSize: 20,
+                letterSpacing: 6,
+                fontWeight: FontWeight.bold,
+                foreground: Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = 5
+                  ..color = Colors.black,
+              ),
+            ),
+            // The text inside
+            Text(
+              'New Entry',
+              style: GoogleFonts.lobster(
+                fontSize: 20,
+                letterSpacing: 6,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+          ],
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -196,30 +227,37 @@ class _AddNewEntryState extends State<AddNewEntry> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: ElevatedButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate() &&
-                          selectedCategory != "" &&
-                          downloadUrl != "") {
-                        setState(() {
-                          isuploaded = false;
-                        });
-                        await sendtoserver(titlecontroller.text,
-                            pricecontroller.text, descriptioncontroller.text);
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate() &&
+                            selectedCategory != "" &&
+                            downloadUrl != "") {
+                          setState(() {
+                            isuploaded = false;
+                          });
+                          await sendtoserver(titlecontroller.text,
+                              pricecontroller.text, descriptioncontroller.text);
 
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Uploaded Data')),
-                        );
-                        titlecontroller.clear();
-                        pricecontroller.clear();
-                        descriptioncontroller.clear();
-                        Navigator.pop(context);
-                      }
-                    },
-                    child: isuploaded == true
-                        ? const Text('Submit')
-                        : const CircularProgressIndicator(
-                            backgroundColor: Colors.black),
-                  ),
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Uploaded Data')),
+                          );
+                          titlecontroller.clear();
+                          pricecontroller.clear();
+                          descriptioncontroller.clear();
+                          Navigator.pop(context);
+                        }
+                      },
+                      child: isuploaded == true
+                          ? const Text('Submit')
+                          : const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation(Colors.white),
+                                backgroundColor: Colors.black,
+                                strokeWidth: 3,
+                              ),
+                            )),
                 ),
               ],
             ),

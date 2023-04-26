@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:kiet_olx/BrowseCategories/category_row.dart';
 import 'package:kiet_olx/FreshlyRecommendation/freshly_products_column.dart';
@@ -89,8 +90,32 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
-        title: const Text(
-          "OLX KIET",
+        title: Stack(
+          children: [
+            // The text border
+            Text(
+              ' OLX KIET ',
+              style: GoogleFonts.lobster(
+                fontSize: 20,
+                letterSpacing: 6,
+                fontWeight: FontWeight.bold,
+                foreground: Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = 5
+                  ..color = Colors.black,
+              ),
+            ),
+            // The text inside
+            Text(
+              ' OLX KIET ',
+              style: GoogleFonts.lobster(
+                fontSize: 20,
+                letterSpacing: 6,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+          ],
         ),
         actions: [SearchBar()],
       ),
@@ -102,29 +127,72 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Align(
             alignment: Alignment.topLeft,
-            child: Text(
-              "   Browse Category",
-              style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: mq.height * 0.02),
+            child: Stack(
+              children: [
+                // The text border
+                Text(
+                  " Browse Category",
+                  style: GoogleFonts.aBeeZee(
+                    fontSize: 17,
+                    letterSpacing: 6,
+                    fontWeight: FontWeight.bold,
+                    foreground: Paint()
+                      ..style = PaintingStyle.stroke
+                      ..strokeWidth = 2
+                      ..color = Colors.black,
+                  ),
+                ),
+                // The text inside
+                Text(
+                  " Browse Category",
+                  style: GoogleFonts.aBeeZee(
+                    fontSize: 17,
+                    letterSpacing: 6,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(
             height: 20,
           ),
+
           const CategooryRow(),
+
           const SizedBox(
             height: 15,
           ),
           Align(
             alignment: Alignment.topLeft,
-            child: Text(
-              "   Fresh Recommendations",
-              style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: mq.height * 0.02),
+            child: Stack(
+              children: [
+                // The text border
+                Text(
+                  " Fresh Recommendations",
+                  style: GoogleFonts.aBeeZee(
+                    fontSize: 17,
+                    letterSpacing: 6,
+                    fontWeight: FontWeight.bold,
+                    foreground: Paint()
+                      ..style = PaintingStyle.stroke
+                      ..strokeWidth = 2
+                      ..color = Colors.black,
+                  ),
+                ),
+
+                // The text inside
+                Text(
+                  " Fresh Recommendations",
+                  style: GoogleFonts.aBeeZee(
+                    fontSize: 17,
+                    letterSpacing: 6,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(

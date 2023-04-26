@@ -6,7 +6,7 @@ import 'browse_products_coulmn.dart';
 
 class CategoriesButton extends StatelessWidget {
   Color? chooseColor;
-  Icon? chooseIcon;
+  String? chooseIcon;
   String? chooseText;
   CategoriesButton(
       {Key? key,
@@ -26,15 +26,18 @@ class CategoriesButton extends StatelessWidget {
             ));
       },
       child: Container(
-        height: 100,
+        height: 90,
         width: 100,
         color: Color.fromARGB(255, 255, 255, 255),
         child: Column(
           children: [
             CircleAvatar(
               maxRadius: 35,
-              child: chooseIcon,
               backgroundColor: chooseColor,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset("assets/icons/$chooseIcon.png"),
+              ),
             ),
             Spacer(),
             Text(

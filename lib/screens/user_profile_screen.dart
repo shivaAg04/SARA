@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kiet_olx/api/apis.dart';
@@ -43,11 +44,32 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        title: Text(
-          "Profile Screen",
-          style: TextStyle(
-              color: Theme.of(context).primaryColor,
-              fontWeight: FontWeight.bold),
+        title: Stack(
+          children: [
+            // The text border
+            Text(
+              'Profile Screen',
+              style: GoogleFonts.lobster(
+                fontSize: 20,
+                letterSpacing: 6,
+                fontWeight: FontWeight.bold,
+                foreground: Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = 5
+                  ..color = Colors.black,
+              ),
+            ),
+            // The text inside
+            Text(
+              'Profile Screen',
+              style: GoogleFonts.lobster(
+                fontSize: 20,
+                letterSpacing: 6,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+          ],
         ),
         centerTitle: true,
       ),

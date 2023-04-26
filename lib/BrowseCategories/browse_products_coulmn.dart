@@ -1,25 +1,49 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/add_new_entry.dart';
-import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/edited_screen.dart';
 
-import '../../../widgets/product_card.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../FreshlyRecommendation/fresh_recommendation_card.dart';
 
 class BrowswProductColumn extends StatelessWidget {
   String CategoryName;
   BrowswProductColumn(this.CategoryName);
 
-  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  late User? user = _auth.currentUser;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(CategoryName),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: Stack(
+          children: [
+            // The text border
+            Text(
+              CategoryName,
+              style: GoogleFonts.lobster(
+                fontSize: 20,
+                letterSpacing: 6,
+                fontWeight: FontWeight.bold,
+                foreground: Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = 5
+                  ..color = Colors.black,
+              ),
+            ),
+            // The text inside
+            Text(
+              CategoryName,
+              style: GoogleFonts.lobster(
+                fontSize: 20,
+                letterSpacing: 6,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+          ],
+        ),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
@@ -39,6 +63,7 @@ class BrowswProductColumn extends StatelessWidget {
                       .data!.docs[snapshot.data!.docs.length - (index + 1)]
                       .data() as Map<String, dynamic>;
                   return FreshRecommendationCard(
+                      index,
                       userMAp["Title"],
                       userMAp["Price"] + "₹",
                       userMAp["Pic"],

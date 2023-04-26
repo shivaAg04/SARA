@@ -8,6 +8,7 @@ import '../screens/home/product_detail_screen.dart';
 import 'fresh_detail_screen.dart';
 
 class FreshRecommendationCard extends StatelessWidget {
+  int i;
   String title;
   String price;
   String picUrl;
@@ -16,8 +17,8 @@ class FreshRecommendationCard extends StatelessWidget {
   String Category;
   String Email;
 
-  FreshRecommendationCard(this.title, this.price, this.picUrl, this.description,
-      this.id, this.Category, this.Email,
+  FreshRecommendationCard(this.i, this.title, this.price, this.picUrl,
+      this.description, this.id, this.Category, this.Email,
       {super.key});
 
   @override

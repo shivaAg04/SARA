@@ -56,32 +56,32 @@ class _StartLoginState extends State<StartLogin> {
       // Trigger the authentication flow
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       //////// normal gmail///////////
-      // final GoogleSignInAuthentication? googleAuth =
-      //     await googleUser!.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser!.authentication;
 
-      // // Create a new credential
-      // final credential = GoogleAuthProvider.credential(
-      //   accessToken: googleAuth?.accessToken,
-      //   idToken: googleAuth?.idToken,
-      // );
-      // return await APIs.auth.signInWithCredential(credential);
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      return await APIs.auth.signInWithCredential(credential);
       // Obtain the auth details from the request
-      if (googleUser!.email.endsWith("@kiet.edu")) {
-        final GoogleSignInAuthentication googleAuth =
-            await googleUser.authentication;
+      // if (googleUser!.email.endsWith("@kiet.edu")) {
+      //   final GoogleSignInAuthentication googleAuth =
+      //       await googleUser.authentication;
 
-        // Create a new credential
-        final credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken,
-          idToken: googleAuth.idToken,
-        );
-        return await APIs.auth.signInWithCredential(credential);
-      } else {
-        await GoogleSignIn().disconnect().then((value) {
-          Dialogs.showSnackBar(context, "Only KIET MAIL");
-          return null;
-        });
-      }
+      //   // Create a new credential
+      //   final credential = GoogleAuthProvider.credential(
+      //     accessToken: googleAuth.accessToken,
+      //     idToken: googleAuth.idToken,
+      //   );
+      //   return await APIs.auth.signInWithCredential(credential);
+      // } else {
+      //   await GoogleSignIn().disconnect().then((value) {
+      //     Dialogs.showSnackBar(context, "Only KIET MAIL");
+      //     return null;
+      //   });
+      // }
 
       // Once signed in, return the UserCredential
     } catch (e) {

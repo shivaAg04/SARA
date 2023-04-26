@@ -13,9 +13,10 @@ class ProductDetailScreen extends StatelessWidget {
   String description;
   String id;
   String Category;
+  String sent;
 
   ProductDetailScreen(this.title, this.price, this.pic, this.description,
-      this.id, this.Category,
+      this.id, this.Category, this.sent,
       {super.key});
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -125,7 +126,7 @@ class ProductDetailScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: ((context) => EditedScreen(
-                              title, description, price, id, Category)),
+                              title, description, price, id, Category, sent)),
                         ),
                       );
                     },

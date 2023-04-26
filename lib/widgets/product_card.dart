@@ -12,9 +12,10 @@ class ProductCard extends StatelessWidget {
   String description;
   String id;
   String Category;
+  String sent;
 
   ProductCard(this.title, this.price, this.picUrl, this.description, this.id,
-      this.Category,
+      this.Category, this.sent,
       {super.key});
 
   @override
@@ -25,7 +26,7 @@ class ProductCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: ((context) => ProductDetailScreen(
-                title, price, picUrl, description, id, Category)),
+                title, price, picUrl, description, id, Category, sent)),
           ),
         );
       },

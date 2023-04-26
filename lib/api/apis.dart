@@ -272,7 +272,10 @@ class APIs {
 
 // for getting the products of specific user
   static Stream<QuerySnapshot<Map<String, dynamic>>> getUserProducts() {
-    return firestore.collection('products/${user.uid}/items/').snapshots();
+    return firestore
+        .collection('Products')
+        .where('Id', isEqualTo: user.uid)
+        .snapshots();
   }
 
   // for sending message

@@ -2,8 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:kiet_olx/api/apis.dart';
+import 'package:kiet_olx/model/chat_user.dart';
 import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/edited_screen.dart';
 
+import '../chat_app/chat_screen.dart';
 import '../main.dart';
 
 class FreshDetailScreen extends StatelessWidget {
@@ -18,9 +21,18 @@ class FreshDetailScreen extends StatelessWidget {
   FreshDetailScreen(this.title, this.price, this.pic, this.description, this.id,
       this.Category, this.Email,
       {super.key});
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  late User? user = _auth.currentUser;
+  late ChatUser productseller;
+  Future<void> getuser(BuildContext context) async {
+    await APIs.firestore.collection('users').doc(id).get().then((user) async {
+      productseller = ChatUser.fromJson(user.data()!);
+    }).then((value) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (_) => ChatUserScreen(user: productseller)));
+    });
+    await APIs.addChatUser(Email);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,9 +147,11 @@ class FreshDetailScreen extends StatelessWidget {
                 height: 30,
               ),
               ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: Icon(Icons.chat_outlined),
-                  label: Text("Message"))
+                  onPressed: () {
+                    getuser(context);
+                  },
+                  icon: const Icon(Icons.chat_outlined),
+                  label: const Text("Message"))
             ],
           ),
         ),

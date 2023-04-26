@@ -11,12 +11,6 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
-  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  late User? user = _auth.currentUser;
-
   final List _allproducts = [];
 
   void listMaking() async {
@@ -38,6 +32,7 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+        color: Theme.of(context).primaryColor,
         icon: Icon(Icons.search),
         onPressed: () {
           Navigator.push(

@@ -15,7 +15,6 @@ class SearchBarScreen extends StatefulWidget {
 }
 
 class _SearchBarScreenState extends State<SearchBarScreen> {
-  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late User? user = _auth.currentUser;
 
@@ -54,6 +53,8 @@ class _SearchBarScreenState extends State<SearchBarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
         centerTitle: true,
         title: const Text('OLX KIET'),
       ),
@@ -88,6 +89,7 @@ class _SearchBarScreenState extends State<SearchBarScreen> {
                       itemCount: _foundProducts.length,
                       itemBuilder: (BuildContext context, int index) {
                         return FreshRecommendationCard(
+                            index,
                             _foundProducts[index]["Title"],
                             _foundProducts[index]["Price"] + "₹",
                             _foundProducts[index]["Pic"],

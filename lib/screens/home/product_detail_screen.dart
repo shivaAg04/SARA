@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:kiet_olx/api/apis.dart';
 import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/edited_screen.dart';
 
 import '../../main.dart';
@@ -18,15 +19,9 @@ class ProductDetailScreen extends StatelessWidget {
   ProductDetailScreen(this.title, this.price, this.pic, this.description,
       this.id, this.Category, this.sent,
       {super.key});
-  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  late User? user = _auth.currentUser;
 
   deleteProduct(String id) async {
-    await _firebaseFirestore
-        .collection("Products")
-        .doc(user!.email! + id)
-        .delete();
+    await APIs.firestore.collection("Products").doc(sent).delete();
   }
 
   @override
@@ -122,7 +117,7 @@ class ProductDetailScreen extends StatelessWidget {
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 IconButton(
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: ((context) => EditedScreen(

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kiet_olx/api/apis.dart';
 import 'package:kiet_olx/chat_app/profile_screen.dart';
 import 'package:kiet_olx/main.dart';
@@ -9,6 +10,7 @@ import 'package:kiet_olx/model/chat_user.dart';
 import 'package:kiet_olx/widgets/chat_user_card.dart';
 
 import '../helper/dialogs.dart';
+import '../screens/screen_controller/bottom_navigation_bar.dart';
 
 class ChatHomeScreen extends StatefulWidget {
   const ChatHomeScreen({super.key});
@@ -45,8 +47,20 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
           }
         },
         child: Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
-            leading: const Icon(CupertinoIcons.home),
+            elevation: 0,
+            leading: IconButton(
+              icon: Icon(CupertinoIcons.home),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => CustomiseBottomNavigationBar(iindex: 1),
+                  ),
+                );
+              },
+            ),
             title: _issearching
                 ? TextField(
                     cursorColor: Colors.white,
@@ -69,7 +83,33 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                       }
                     },
                   )
-                : const Text("Messages"),
+                : Stack(
+                    children: [
+                      // The text border
+                      Text(
+                        ' OLX KIET ',
+                        style: GoogleFonts.lobster(
+                          fontSize: 20,
+                          letterSpacing: 6,
+                          fontWeight: FontWeight.bold,
+                          foreground: Paint()
+                            ..style = PaintingStyle.stroke
+                            ..strokeWidth = 5
+                            ..color = Colors.black,
+                        ),
+                      ),
+                      // The text inside
+                      Text(
+                        ' OLX KIET ',
+                        style: GoogleFonts.lobster(
+                          fontSize: 20,
+                          letterSpacing: 6,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ],
+                  ),
             centerTitle: true,
             actions: [
               IconButton(

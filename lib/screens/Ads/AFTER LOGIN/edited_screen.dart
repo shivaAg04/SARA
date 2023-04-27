@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kiet_olx/helper/dialogs.dart';
 import 'package:kiet_olx/main.dart';
 
+import '../../../api/apis.dart';
+
 class EditedScreen extends StatefulWidget {
   late final String oldTitle;
   late final String oldDescription;
@@ -30,20 +32,19 @@ class EditedScreen extends StatefulWidget {
 
 class _EditedScreenState extends State<EditedScreen> {
   List dropDownListData = [
-    {"title": "SPORTS", "value": "SPORTS"},
-    {"title": "STATIONARY", "value": "STATIONARY"},
-    {"title": "ELECTRICAL", "value": "ELECTRICAL"},
-    {"title": "OTHERS", "value": "OTHERS"},
+    {"title": "SPORTS", "value": "Sports"},
+    {"title": "STATIONARY", "value": "Stationary"},
+    {"title": "ELECTRICAL", "value": "Electrical"},
+    {"title": "OTHERS", "value": "Others"},
+    {"title": "Quantum", "value": "Quantum"},
+    {"title": "Coolers", "value": "Coolers"},
+    {"title": "Lab Coat", "value": "Lab Coat"},
+    {"title": "Calculators", "value": "Calculators"},
   ];
 
   String selectedCategory = "";
   final _formKey = GlobalKey<FormState>();
 
-  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  late User? user = _auth.currentUser;
   bool _isUploading = false;
   sendtoserver(
       String serverTitle, String serverPrice, String serverDescription) async {
@@ -54,10 +55,7 @@ class _EditedScreenState extends State<EditedScreen> {
       "Category": selectedCategory
     };
 
-    await _firebaseFirestore
-        .collection("Products")
-        .doc(widget.sent)
-        .update(data);
+    await APIs.firestore.collection("Products").doc(widget.sent).update(data);
   }
 
   @override
@@ -210,6 +208,8 @@ class _EditedScreenState extends State<EditedScreen> {
                           Dialogs.showSnackBar(context, "Updated Successfully");
 
                           Navigator.pop(context);
+                        } else {
+                          Dialogs.showSnackBar(context, "select Category");
                         }
                       },
                       child: _isUploading

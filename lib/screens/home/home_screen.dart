@@ -12,12 +12,23 @@ import 'package:lottie/lottie.dart';
 
 import '../../SearchBar/search_bar_icon.dart';
 import '../../api/apis.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
+}
+
+Future<void> _launchURL(String url) async {
+  final Uri uri = Uri(scheme: "https", host: url);
+  if (!await launchUrl(
+    uri,
+    mode: LaunchMode.externalApplication,
+  )) {
+    throw "Can not launch url";
+  }
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -61,7 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               title: Row(
                 children: [
-                  const Icon(Icons.message, color: Colors.orange),
+                  CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: Image.asset("assets/images/chat.png")),
                   SizedBox(
                     width: mq.width * 0.04,
                   ),
@@ -77,12 +90,63 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
             ListTile(
-              title: const Text('Item 2'),
+              title: Row(
+                children: [
+                  CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: Image.asset("assets/images/coding.png")),
+                  SizedBox(
+                    width: mq.width * 0.04,
+                  ),
+                  const Text('About Shiva'),
+                ],
+              ),
               onTap: () {
                 // Update the state of the app.
                 // ...
               },
             ),
+            SizedBox(
+              height: mq.height * .5,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: Image.asset("assets/images/instagram.png")),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: GestureDetector(
+                          onTap: () async {
+                            const url =
+                                'https://www.youtube.com/c/ICC/featured';
+
+                            await canLaunchUrl(Uri.parse(url))
+                                ? await launchUrl(Uri.parse(url))
+                                : throw 'Could not launch $url';
+                          },
+                          child: Image.asset("assets/images/linkedin.png"))),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: Image.asset("assets/images/youtube.png")),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: Image.asset("assets/images/twitter (1).png")),
+                ),
+              ],
+            )
           ],
         ),
       ),

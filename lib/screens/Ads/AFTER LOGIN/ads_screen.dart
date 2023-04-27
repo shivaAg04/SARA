@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kiet_olx/model/products.dart';
 import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/add_new_entry.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../api/apis.dart';
 
@@ -104,12 +105,14 @@ class _AdsScreenState extends State<AdsScreen> {
                   },
                 );
               } else {
-                return const Center(
-                  child: Text(
-                    "Say Hello!!👋",
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
-                  ),
-                );
+                return Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset("assets/empty.json"),
+                    Text("No Ads"),
+                  ],
+                ));
               }
           }
         }),

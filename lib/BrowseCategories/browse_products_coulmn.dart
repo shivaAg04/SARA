@@ -2,8 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 import '../FreshlyRecommendation/fresh_recommendation_card.dart';
+import '../api/apis.dart';
+import '../model/products.dart';
 
 class BrowswProductColumn extends StatelessWidget {
   String CategoryName;
@@ -45,39 +48,57 @@ class BrowswProductColumn extends StatelessWidget {
           ],
         ),
       ),
-      body: StreamBuilder<QuerySnapshot>(
+      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
             .collection("Products")
-            .where("Category", isEqualTo: CategoryName)
+            .where(
+              "Category",
+              isEqualTo: CategoryName,
+            )
+            .where("Id", isNotEqualTo: APIs.user.uid)
             .snapshots(),
         builder: ((context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.active) {
-            if (snapshot.hasData && snapshot.data != null) {
-              return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemCount: snapshot.data!.docs.length,
-                itemBuilder: (BuildContext context, int index) {
-                  Map<String, dynamic> userMAp = snapshot
-                      .data!.docs[snapshot.data!.docs.length - (index + 1)]
-                      .data() as Map<String, dynamic>;
-                  return FreshRecommendationCard(
-                      index,
-                      userMAp["Title"],
-                      userMAp["Price"] + "₹",
-                      userMAp["Pic"],
-                      userMAp["Description"],
-                      userMAp["Id"],
-                      userMAp["Category"],
-                      userMAp["Email"]);
-                },
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+            case ConnectionState.none:
+              return const Center(
+                child: SizedBox(),
               );
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
-          } else {
-            return const Center(child: CircularProgressIndicator());
+            case ConnectionState.active:
+            case ConnectionState.done:
+              final data = snapshot.data?.docs;
+              List<Products> list =
+                  data?.map((e) => Products.fromJson(e.data())).toList() ?? [];
+              if (list.isNotEmpty) {
+                return GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    int i = list.length - index - 1;
+
+                    return FreshRecommendationCard(
+                        i,
+                        list[i].Title,
+                        list[i].Price,
+                        list[i].Pic,
+                        list[i].Description,
+                        list[i].Id,
+                        list[i].Category,
+                        list[i].Email);
+                  },
+                );
+              } else {
+                return Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset("assets/empty.json"),
+                    Text("No Ads"),
+                  ],
+                ));
+              }
           }
         }),
       ),

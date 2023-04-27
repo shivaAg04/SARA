@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kiet_olx/screens/Ads/AFTER%20LOGIN/dropdown.dart';
-import 'package:kiet_olx/screens/screen_controller/bottom_navigation_bar.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:kiet_olx/screens/splash/splash_screen.dart';
-import 'chat_app/chat_home_screen.dart';
-import 'firebase_options.dart';
 
-import 'package:kiet_olx/screens/home/home_screen.dart';
+import 'firebase_options.dart';
 
 late Size mq;
 void main() async {

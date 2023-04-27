@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kiet_olx/api/apis.dart';
+import 'package:kiet_olx/helper/dialogs.dart';
 
 import 'package:kiet_olx/main.dart';
 import 'package:kiet_olx/model/chat_user.dart';
@@ -30,11 +31,24 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     super.initState();
   }
 
+  bool islogin = true;
+  bool isupdated = true;
   Future<void> logout() async {
-    await GoogleSignIn().disconnect();
-    APIs.auth.signOut();
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => StartLogin()));
+    setState(() {
+      islogin = !islogin;
+    });
+    try {
+      await GoogleSignIn().disconnect();
+
+      APIs.auth.signOut();
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => StartLogin()));
+    } catch (e) {
+      setState(() {
+        islogin = !islogin;
+      });
+      Dialogs.showSnackBar(context, "Some error in logout");
+    }
   }
 
   @override
@@ -80,7 +94,17 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             logout();
           },
           icon: const Icon(Icons.logout),
-          label: const Text("Logout"),
+          label: islogin
+              ? const Text("Logout")
+              : const SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(Colors.white),
+                    backgroundColor: Colors.black,
+                    strokeWidth: 3,
+                  ),
+                ),
         ),
       ),
       //body
@@ -186,25 +210,41 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 height: mq.height * .04,
               ),
               ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    shape: StadiumBorder(),
-                    minimumSize: Size(mq.width * .5, mq.height * .06)),
-                onPressed: () {
-                  if (_formkey.currentState!.validate()) {
-                    _formkey.currentState!.save();
-                    APIs.updateUser();
-                  }
-                },
-                icon: const Icon(
-                  Icons.edit,
-                  color: Colors.white,
-                ),
-                label: const Text(
-                  "UPDATE",
-                  style: TextStyle(fontSize: 17, color: Colors.white),
-                ),
-              )
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      shape: StadiumBorder(),
+                      minimumSize: Size(mq.width * .5, mq.height * .06)),
+                  onPressed: () {
+                    if (_formkey.currentState!.validate()) {
+                      _formkey.currentState!.save();
+                      setState(() {
+                        isupdated = !isupdated;
+                      });
+                      APIs.updateUser().then((value) {
+                        setState(() {
+                          isupdated = !isupdated;
+                        });
+                      });
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.edit,
+                    color: Colors.white,
+                  ),
+                  label: isupdated
+                      ? const Text(
+                          "UPDATE",
+                          style: TextStyle(fontSize: 17, color: Colors.white),
+                        )
+                      : const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(Colors.white),
+                            backgroundColor: Colors.black,
+                            strokeWidth: 3,
+                          ),
+                        ))
             ]),
           ),
         ),

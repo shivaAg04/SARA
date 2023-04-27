@@ -58,11 +58,11 @@ class _SearchBarScreenState extends State<SearchBarScreen> {
         centerTitle: true,
         title: const Text('OLX KIET'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            TextField(
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
               onChanged: (value) => _runFilter(value),
               decoration: InputDecoration(
                 contentPadding:
@@ -76,36 +76,36 @@ class _SearchBarScreenState extends State<SearchBarScreen> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            Expanded(
-              child: _foundProducts.isNotEmpty
-                  ? GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                      ),
-                      itemCount: _foundProducts.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return FreshRecommendationCard(
-                            index,
-                            _foundProducts[index]["Title"],
-                            _foundProducts[index]["Price"] + "₹",
-                            _foundProducts[index]["Pic"],
-                            _foundProducts[index]["Description"],
-                            _foundProducts[index]["Id"],
-                            _foundProducts[index]["Category"],
-                            _foundProducts[index]["Email"]);
-                      },
-                    )
-                  : const Text(
-                      'No results found Please try with diffrent search',
-                      style: TextStyle(fontSize: 24),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: _foundProducts.isNotEmpty
+                ? GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
                     ),
-            ),
-          ],
-        ),
+                    itemCount: _foundProducts.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return FreshRecommendationCard(
+                          index,
+                          _foundProducts[index]["Title"],
+                          _foundProducts[index]["Price"] + "₹",
+                          _foundProducts[index]["Pic"],
+                          _foundProducts[index]["Description"],
+                          _foundProducts[index]["Id"],
+                          _foundProducts[index]["Category"],
+                          _foundProducts[index]["Email"]);
+                    },
+                  )
+                : const Text(
+                    'No results found Please try with diffrent search',
+                    style: TextStyle(fontSize: 24),
+                  ),
+          ),
+        ],
       ),
     );
   }

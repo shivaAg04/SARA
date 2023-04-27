@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../api/apis.dart';
+import '../../../helper/dialogs.dart';
 
 class AddNewEntry extends StatefulWidget {
   AddNewEntry({Key? key}) : super(key: key);
@@ -19,13 +20,17 @@ class AddNewEntry extends StatefulWidget {
 
 class _AddNewEntryState extends State<AddNewEntry> {
   List dropDownListData = [
-    {"title": "SPORTS", "value": "SPORTS"},
-    {"title": "STATIONARY", "value": "STATIONARY"},
-    {"title": "ELECTRICAL", "value": "ELECTRICAL"},
-    {"title": "OTHERS", "value": "OTHERS"},
+    {"title": "SPORTS", "value": "Sports"},
+    {"title": "STATIONARY", "value": "Stationary"},
+    {"title": "ELECTRICAL", "value": "Electrical"},
+    {"title": "OTHERS", "value": "Others"},
+    {"title": "Quantum", "value": "Quantum"},
+    {"title": "Coolers", "value": "Coolers"},
+    {"title": "Lab Coat", "value": "Lab Coat"},
+    {"title": "Calculators", "value": "Calculators"},
   ];
 
-  String selectedCategory = "";
+  String? selectedCategory;
   TextEditingController titlecontroller = TextEditingController();
 
   TextEditingController pricecontroller = TextEditingController();
@@ -33,12 +38,6 @@ class _AddNewEntryState extends State<AddNewEntry> {
   TextEditingController descriptioncontroller = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-
-  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  late User? user = _auth.currentUser;
 
   File? mainPic;
   String? downloadUrl;
@@ -59,10 +58,10 @@ class _AddNewEntryState extends State<AddNewEntry> {
       "Title": serverTitle,
       "Price": serverPrice,
       "Description": serverDescription,
-      "Id": user!.uid,
+      "Id": APIs.user.uid,
       "Pic": downloadUrl,
       "Category": selectedCategory,
-      "Email": user!.email!,
+      "Email": APIs.user.email!,
       "sent": time
     };
     final ref = APIs.firestore.collection('Products');
@@ -244,6 +243,9 @@ class _AddNewEntryState extends State<AddNewEntry> {
                           pricecontroller.clear();
                           descriptioncontroller.clear();
                           Navigator.pop(context);
+                        } else {
+                          Dialogs.showSnackBar(
+                              context, "upload pic or select category");
                         }
                       },
                       child: isuploaded == true

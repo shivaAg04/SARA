@@ -60,30 +60,38 @@ class _SplashScreen extends State<SplashScreen> {
               children: [
                 // The text border
                 Text(
-                  ' OLX KIET ',
-                  style: GoogleFonts.lobster(
-                    fontSize: 30,
-                    letterSpacing: 6,
+                  ' SARA ',
+                  style: GoogleFonts.josefinSans(
+                    fontSize: 40,
+                    letterSpacing: 15,
                     fontWeight: FontWeight.bold,
                     foreground: Paint()
                       ..style = PaintingStyle.stroke
-                      ..strokeWidth = 10
-                      ..color = Colors.black,
+                      ..strokeWidth = 3
+                      ..color = Color.fromARGB(255, 1, 85, 129),
                   ),
                 ),
-                // The text inside
+
                 Text(
-                  ' OLX KIET ',
-                  style: GoogleFonts.lobster(
-                    fontSize: 30,
-                    letterSpacing: 6,
+                  ' SARA ',
+                  style: GoogleFonts.josefinSans(
+                    fontSize: 40,
+                    letterSpacing: 15,
                     fontWeight: FontWeight.bold,
-                    color: Theme.of(context).primaryColor,
+                    color: Color.fromARGB(255, 255, 102, 0),
                   ),
                 ),
               ],
             ),
-
+            Padding(
+              padding: EdgeInsets.all(8),
+              child: Text(
+                "Sell    And    Rent   App",
+                style: TextStyle(
+                  color: Color.fromARGB(255, 1, 85, 129),
+                ),
+              ),
+            ),
             //
             Container(child: Lottie.asset('assets/splash.json')),
             // SizedBox(height: 120),

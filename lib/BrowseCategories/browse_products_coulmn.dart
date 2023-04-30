@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-
 import '../FreshlyRecommendation/fresh_recommendation_card.dart';
-import '../api/apis.dart';
 import '../model/products.dart';
 
 class BrowswProductColumn extends StatelessWidget {
@@ -25,22 +22,22 @@ class BrowswProductColumn extends StatelessWidget {
             // The text border
             Text(
               CategoryName,
-              style: GoogleFonts.lobster(
+              style: GoogleFonts.josefinSans(
                 fontSize: 20,
-                letterSpacing: 6,
+                letterSpacing: 3,
                 fontWeight: FontWeight.bold,
                 foreground: Paint()
                   ..style = PaintingStyle.stroke
-                  ..strokeWidth = 5
-                  ..color = Colors.black,
+                  ..strokeWidth = 3
+                  ..color = Color.fromARGB(255, 1, 85, 129),
               ),
             ),
             // The text inside
             Text(
               CategoryName,
-              style: GoogleFonts.lobster(
+              style: GoogleFonts.josefinSans(
                 fontSize: 20,
-                letterSpacing: 6,
+                letterSpacing: 3,
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).primaryColor,
               ),
@@ -51,11 +48,8 @@ class BrowswProductColumn extends StatelessWidget {
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
             .collection("Products")
-            .where(
-              "Category",
-              isEqualTo: CategoryName,
-            )
-            .where("Id", isNotEqualTo: APIs.user.uid)
+            .where("Category", isEqualTo: CategoryName)
+            // .where("Id", isNotEqualTo: APIs.user.uid)
             .snapshots(),
         builder: ((context, snapshot) {
           switch (snapshot.connectionState) {
@@ -91,13 +85,14 @@ class BrowswProductColumn extends StatelessWidget {
                 );
               } else {
                 return Center(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Lottie.asset("assets/empty.json"),
-                    Text("No Ads"),
-                  ],
-                ));
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Lottie.asset("assets/empty.json"),
+                      Text("No Ads"),
+                    ],
+                  ),
+                );
               }
           }
         }),

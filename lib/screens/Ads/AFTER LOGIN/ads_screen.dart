@@ -32,22 +32,22 @@ class _AdsScreenState extends State<AdsScreen> {
             // The text border
             Text(
               'MY ADS',
-              style: GoogleFonts.lobster(
-                fontSize: 20,
-                letterSpacing: 6,
+              style: GoogleFonts.josefinSans(
+                fontSize: 25,
+                letterSpacing: 4,
                 fontWeight: FontWeight.bold,
                 foreground: Paint()
                   ..style = PaintingStyle.stroke
-                  ..strokeWidth = 5
-                  ..color = Colors.black,
+                  ..strokeWidth = 3
+                  ..color = Color.fromARGB(255, 1, 85, 129),
               ),
             ),
             // The text inside
             Text(
               'MY ADS',
-              style: GoogleFonts.lobster(
-                fontSize: 20,
-                letterSpacing: 6,
+              style: GoogleFonts.josefinSans(
+                fontSize: 25,
+                letterSpacing: 4,
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).primaryColor,
               ),

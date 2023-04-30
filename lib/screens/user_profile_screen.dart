@@ -63,24 +63,24 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             // The text border
             Text(
               'Profile Screen',
-              style: GoogleFonts.lobster(
-                fontSize: 20,
-                letterSpacing: 6,
+              style: GoogleFonts.josefinSans(
+                fontSize: 27,
+                letterSpacing: 3,
                 fontWeight: FontWeight.bold,
                 foreground: Paint()
                   ..style = PaintingStyle.stroke
-                  ..strokeWidth = 5
-                  ..color = Colors.black,
+                  ..strokeWidth = 3
+                  ..color = Color.fromARGB(255, 1, 85, 129),
               ),
             ),
-            // The text inside
+
             Text(
               'Profile Screen',
-              style: GoogleFonts.lobster(
-                fontSize: 20,
-                letterSpacing: 6,
+              style: GoogleFonts.josefinSans(
+                fontSize: 27,
+                letterSpacing: 3,
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
+                color: Color.fromARGB(255, 255, 102, 0),
               ),
             ),
           ],
@@ -139,7 +139,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             fit: BoxFit.cover,
                             errorWidget: (context, url, error) =>
                                 const CircleAvatar(
-                              child: Icon(CupertinoIcons.person),
+                              child: Icon(
+                                CupertinoIcons.person,
+                                color: Color.fromARGB(255, 1, 85, 129),
+                              ),
                             ),
                           ),
                         ),
@@ -180,7 +183,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     value != null && value.isNotEmpty ? null : "Required Field",
                 initialValue: user.name,
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.person, color: Colors.orange),
+                  prefixIcon: const Icon(
+                    Icons.person,
+                    color: Color.fromARGB(255, 255, 102, 0),
+                  ),
                   label: const Text("Name"),
                   hintText: "  eg. Shiva Agrahari",
                   border: OutlineInputBorder(
@@ -197,8 +203,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     val != null && val.isNotEmpty ? null : "Required Field",
                 initialValue: user.about,
                 decoration: InputDecoration(
-                  prefixIcon:
-                      const Icon(Icons.info_outline, color: Colors.orange),
+                  prefixIcon: const Icon(
+                    Icons.info_outline,
+                    color: Color.fromARGB(255, 255, 102, 0),
+                  ),
                   label: const Text("About"),
                   hintText: "  eg. I am using KIET OLX",
                   border: OutlineInputBorder(

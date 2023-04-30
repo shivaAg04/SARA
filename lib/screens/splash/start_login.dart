@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lottie/lottie.dart';
 
@@ -98,32 +99,59 @@ class _StartLoginState extends State<StartLogin> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const SizedBox(height: 35.0),
+            SizedBox(height: 35.0),
             Container(
               alignment: Alignment.center,
               height: 400,
               child: Lottie.asset("assets/welcome.json"),
             ),
-            const SizedBox(height: 20),
-            RichText(
-                text: const TextSpan(
-                    text: 'Welcome to ',
-                    style: TextStyle(
-                        fontSize: 25.0,
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Welcome to ",
+                  style: GoogleFonts.josefinSans(
+                    fontSize: 27,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 1, 85, 129),
+                  ),
+                ),
+                Stack(
+                  children: [
+                    // The text border
+                    Text(
+                      'SARA ',
+                      style: GoogleFonts.josefinSans(
+                        fontSize: 30,
+                        letterSpacing: 6,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                    children: <TextSpan>[
-                  TextSpan(
-                      text: 'OLX kiet',
-                      style: TextStyle(
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.orange))
-                ])),
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 3
+                          ..color = Color.fromARGB(255, 1, 85, 129),
+                      ),
+                    ),
+
+                    Text(
+                      'SARA ',
+                      style: GoogleFonts.josefinSans(
+                        fontSize: 30,
+                        letterSpacing: 6,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 255, 102, 0),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
             const SizedBox(height: 10.0),
-            const Text(
+            Text(
               'Sell your unused Product here',
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(
+                color: Color.fromARGB(255, 1, 85, 129),
+              ),
             ),
             const SizedBox(height: 30.0),
             const SizedBox(height: 20.0),

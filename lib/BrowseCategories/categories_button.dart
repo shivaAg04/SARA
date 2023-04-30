@@ -42,6 +42,9 @@ class CategoriesButton extends StatelessWidget {
             Spacer(),
             Text(
               chooseText!,
+              style: TextStyle(
+                color: Color.fromARGB(255, 1, 85, 129),
+              ),
               softWrap: true,
             ),
           ],

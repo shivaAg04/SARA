@@ -78,7 +78,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     width: mq.width * 0.04,
                   ),
-                  const Text('Messages'),
+                  const Text(
+                    'Messages',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 1, 85, 129),
+                    ),
+                  ),
                 ],
               ),
               onTap: () {
@@ -98,7 +103,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     width: mq.width * 0.04,
                   ),
-                  const Text('About Shiva'),
+                  const Text(
+                    'About Shiva',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 1, 85, 129),
+                    ),
+                  ),
                 ],
               ),
               onTap: () {
@@ -151,6 +161,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Color.fromARGB(255, 1, 85, 129),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
@@ -158,25 +171,25 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             // The text border
             Text(
-              ' OLX KIET ',
-              style: GoogleFonts.lobster(
-                fontSize: 20,
+              ' SARA ',
+              style: GoogleFonts.josefinSans(
+                fontSize: 27,
                 letterSpacing: 6,
                 fontWeight: FontWeight.bold,
                 foreground: Paint()
                   ..style = PaintingStyle.stroke
-                  ..strokeWidth = 5
-                  ..color = Colors.black,
+                  ..strokeWidth = 3
+                  ..color = Color.fromARGB(255, 1, 85, 129),
               ),
             ),
-            // The text inside
+
             Text(
-              ' OLX KIET ',
-              style: GoogleFonts.lobster(
-                fontSize: 20,
+              ' SARA ',
+              style: GoogleFonts.josefinSans(
+                fontSize: 27,
                 letterSpacing: 6,
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
+                color: Color.fromARGB(255, 255, 102, 0),
               ),
             ),
           ],
@@ -189,36 +202,15 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 10,
           ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Stack(
-              children: [
-                // The text border
-                Text(
-                  " Browse Category",
-                  style: GoogleFonts.aBeeZee(
-                    fontSize: 17,
-                    letterSpacing: 6,
-                    fontWeight: FontWeight.bold,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 2
-                      ..color = Colors.black,
-                  ),
+          const Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: EdgeInsets.only(left: 8),
+                child: Text(
+                  "  Categories",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
-                // The text inside
-                Text(
-                  " Browse Category",
-                  style: GoogleFonts.aBeeZee(
-                    fontSize: 17,
-                    letterSpacing: 6,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
+              )),
           const SizedBox(
             height: 20,
           ),
@@ -228,37 +220,15 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 15,
           ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Stack(
-              children: [
-                // The text border
-                Text(
-                  " Fresh Recommendations",
-                  style: GoogleFonts.aBeeZee(
-                    fontSize: 17,
-                    letterSpacing: 6,
-                    fontWeight: FontWeight.bold,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 2
-                      ..color = Colors.black,
-                  ),
+          const Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: EdgeInsets.only(left: 8),
+                child: Text(
+                  "  Newly Added",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
-
-                // The text inside
-                Text(
-                  " Fresh Recommendations",
-                  style: GoogleFonts.aBeeZee(
-                    fontSize: 17,
-                    letterSpacing: 6,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
+              )),
           const SizedBox(
             height: 10,
           ),

@@ -41,16 +41,16 @@ class _CustomiseBottomNavigationBar
             Icon(
               Icons.add_sharp,
               size: 20,
-              color: Colors.black,
+              color: Colors.white,
             ),
             Icon(
               Icons.home,
               size: 20,
-              color: Colors.black,
+              color: Colors.white,
             ),
             Icon(
               Icons.account_circle,
-              color: Colors.black,
+              color: Colors.white,
               size: 20,
             ),
           ],
@@ -62,8 +62,8 @@ class _CustomiseBottomNavigationBar
             });
           },
           // animationCurve: Curves.decelerate,
-          buttonBackgroundColor: Theme.of(context).primaryColor,
-          color: Theme.of(context).primaryColor,
+          buttonBackgroundColor: Color.fromARGB(255, 255, 102, 0),
+          color: Color.fromARGB(255, 1, 85, 129),
           backgroundColor: Colors.white,
         ),
       ),

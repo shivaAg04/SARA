@@ -45,7 +45,7 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        color: Theme.of(context).primaryColor,
+        color: Color.fromARGB(255, 1, 85, 129),
         icon: Icon(Icons.search),
         onPressed: () {
           Navigator.push(

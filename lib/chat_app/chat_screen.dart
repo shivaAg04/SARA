@@ -44,11 +44,14 @@ class _ChatUserScreenState extends State<ChatUserScreen> {
           },
           child: Scaffold(
             appBar: AppBar(
+              backgroundColor: Colors.white,
+              iconTheme: IconThemeData(
+                color: Color.fromARGB(255, 255, 102, 0),
+              ),
               elevation: 1,
               automaticallyImplyLeading: false,
               flexibleSpace: _appBar(),
             ),
-            backgroundColor: Color.fromARGB(255, 205, 238, 255),
             body: Column(children: [
               Expanded(
                 child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
@@ -204,6 +207,7 @@ class _ChatUserScreenState extends State<ChatUserScreen> {
           //input field & buttons
           Expanded(
             child: Card(
+              color: Colors.grey.shade200,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
               child: Row(
@@ -297,7 +301,7 @@ class _ChatUserScreenState extends State<ChatUserScreen> {
             padding:
                 const EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 10),
             shape: const CircleBorder(),
-            color: Colors.green,
+            color: Color.fromARGB(255, 1, 85, 129),
             child: const Icon(Icons.send, color: Colors.white, size: 28),
           )
         ],

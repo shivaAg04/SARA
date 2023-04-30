@@ -49,6 +49,10 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
+            iconTheme: IconThemeData(
+              color: Color.fromARGB(255, 1, 85, 129),
+            ),
+            backgroundColor: Colors.white,
             elevation: 0,
             leading: IconButton(
               icon: Icon(CupertinoIcons.home),
@@ -87,22 +91,22 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                     children: [
                       // The text border
                       Text(
-                        ' OLX KIET ',
-                        style: GoogleFonts.lobster(
-                          fontSize: 20,
+                        'SARA',
+                        style: GoogleFonts.josefinSans(
+                          fontSize: 27,
                           letterSpacing: 6,
                           fontWeight: FontWeight.bold,
                           foreground: Paint()
                             ..style = PaintingStyle.stroke
-                            ..strokeWidth = 5
-                            ..color = Colors.black,
+                            ..strokeWidth = 3
+                            ..color = Color.fromARGB(255, 1, 85, 129),
                         ),
                       ),
                       // The text inside
                       Text(
-                        ' OLX KIET ',
-                        style: GoogleFonts.lobster(
-                          fontSize: 20,
+                        'SARA',
+                        style: GoogleFonts.josefinSans(
+                          fontSize: 27,
                           letterSpacing: 6,
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).primaryColor,

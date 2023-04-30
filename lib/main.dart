@@ -25,8 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'KIET OLX',
       theme: ThemeData(
-        primarySwatch: Colors.orange,
-        primaryColor: Colors.orange,
+        primaryColor: Color.fromARGB(255, 255, 102, 0),
       ),
       // home: DropDownHelper(),
       // home: ChatHomeScreen(),

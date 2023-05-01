@@ -1,21 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:kiet_olx/api/apis.dart';
+import 'package:kiet_olx/model/chat_user.dart';
 import 'package:lottie/lottie.dart';
 
-import '../model/products.dart';
-import 'fresh_recommendation_card.dart';
+import '../FreshlyRecommendation/fresh_recommendation_card.dart';
 
-class FreshlyProductColumn extends StatelessWidget {
-  FreshlyProductColumn({Key? key}) : super(key: key);
+import '../model/products.dart';
+
+class UserProductColumn extends StatelessWidget {
+  ChatUser user;
+  UserProductColumn({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
       stream: FirebaseFirestore.instance
           .collection("Products")
-          .where("Id", isNotEqualTo: APIs.user.uid)
+          .where(
+            "Id",
+            isEqualTo: user.id,
+          )
           .snapshots(),
       builder: ((context, snapshot) {
         switch (snapshot.connectionState) {

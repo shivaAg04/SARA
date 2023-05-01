@@ -20,8 +20,9 @@ class ProductDetailScreen extends StatelessWidget {
       this.id, this.Category, this.sent,
       {super.key});
 
-  deleteProduct(String id) async {
+  deleteProduct() async {
     await APIs.firestore.collection("Products").doc(sent).delete();
+    await APIs.storage.refFromURL(pic).delete();
   }
 
   @override
@@ -132,7 +133,7 @@ class ProductDetailScreen extends StatelessWidget {
                       color: Color.fromARGB(255, 255, 17, 0),
                     ),
                     onPressed: () {
-                      deleteProduct(id);
+                      deleteProduct();
                       Navigator.pop(context);
                     }),
               ])

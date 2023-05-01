@@ -107,7 +107,7 @@ class _EditedScreenState extends State<EditedScreen> {
                     if (value!.isEmpty) {
                       return "enter value";
                     }
-                    if (value.length > 15) {
+                    if (value.length > 20) {
                       return "Big length";
                     } else {
                       return null;

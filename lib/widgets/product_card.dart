@@ -31,9 +31,10 @@ class ProductCard extends StatelessWidget {
         );
       },
       child: Card(
+        elevation: 3,
         color: Colors.grey.shade100,
         child: Padding(
-          padding: const EdgeInsets.all(5),
+          padding: EdgeInsets.all(5),
           child: Column(children: [
             CachedNetworkImage(
               width: mq.height * .18,
@@ -43,14 +44,25 @@ class ProductCard extends StatelessWidget {
               placeholder: (context, url) => const Icon(Icons.image),
               errorWidget: (context, url, error) => const Icon(Icons.image),
             ),
-            const SizedBox(
-              height: 4,
+            // const SizedBox(
+            //   height: 0,
+            // ),
+            Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: 10,
+                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-            Text(title),
-            const SizedBox(
-              height: 4,
+
+            Text(
+              "₹ $price",
+              softWrap: true,
             ),
-            Text("₹ $price"),
           ]),
         ),
       ),

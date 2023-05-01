@@ -159,7 +159,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   "UPDATE",
                   style: TextStyle(fontSize: 17, color: Colors.white),
                 ),
-              )
+              ),
             ]),
           ),
         ),

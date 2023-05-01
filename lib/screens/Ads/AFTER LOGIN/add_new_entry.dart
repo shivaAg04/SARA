@@ -45,15 +45,16 @@ class _AddNewEntryState extends State<AddNewEntry> {
 
   Future<void> sendtoserver(
       String serverTitle, String serverPrice, String serverDescription) async {
-    String id = DateTime.now().toIso8601String();
+    final time = DateTime.now().millisecondsSinceEpoch.toString();
     UploadTask uploadTask = FirebaseStorage.instance
         .ref()
-        .child("profilepictures")
-        .child(Uuid().v1())
+        .child("productPicture")
+        .child(APIs.user.uid)
+        .child(time)
         .putFile(mainPic!);
     TaskSnapshot taskSnapshot = await uploadTask;
     downloadUrl = await taskSnapshot.ref.getDownloadURL();
-    final time = DateTime.now().millisecondsSinceEpoch.toString();
+
     Map<String, dynamic> data = {
       "Title": serverTitle,
       "Price": serverPrice,
@@ -139,7 +140,7 @@ class _AddNewEntryState extends State<AddNewEntry> {
                     if (value!.isEmpty) {
                       return "enter value";
                     }
-                    if (value.length > 15) {
+                    if (value.length > 20) {
                       return "Big length";
                     } else {
                       return null;

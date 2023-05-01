@@ -8,6 +8,7 @@ import 'package:kiet_olx/widgets/profile_dialog.dart';
 
 import '../api/apis.dart';
 
+import '../helper/my_date_util.dart';
 import '../main.dart';
 import '../model/chat_user.dart';
 import '../model/messages.dart';
@@ -80,27 +81,27 @@ class _ChatUserCardState extends State<ChatUserCard> {
                         : widget.user.about,
                     maxLines: 1),
 
-                //last message time
-                // trailing: _message == null
-                //     ? null //show nothing when no message is sent
-                //     : _message!.read.isEmpty &&
-                //             _message!.fromId != APIs.user.uid
-                //         ?
-                //         //show for unread message
-                //         Container(
-                //             width: 15,
-                //             height: 15,
-                //             decoration: BoxDecoration(
-                //                 color: Colors.greenAccent.shade400,
-                //                 borderRadius: BorderRadius.circular(10)),
-                //           )
-                //         :
-                //         //message sent time
-                //         Text(
-                //             MyDateUtil.getLastMessageTime(
-                //                 context: context, time: _message!.sent),
-                //             style: const TextStyle(color: Colors.black54),
-                //           ),
+                // last message time
+                trailing: _message == null
+                    ? null //show nothing when no message is sent
+                    : _message!.read.isEmpty &&
+                            _message!.fromId != APIs.user.uid
+                        ?
+                        //show for unread message
+                        Container(
+                            width: 15,
+                            height: 15,
+                            decoration: BoxDecoration(
+                                color: Colors.greenAccent.shade400,
+                                borderRadius: BorderRadius.circular(10)),
+                          )
+                        :
+                        //message sent time
+                        Text(
+                            MyDateUtil.getLastMessageTime(
+                                context: context, time: _message!.sent),
+                            style: const TextStyle(color: Colors.black54),
+                          ),
               );
             },
           )),

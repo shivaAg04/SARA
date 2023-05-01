@@ -16,9 +16,10 @@ class FreshRecommendationCard extends StatelessWidget {
   String id;
   String Category;
   String Email;
+  String sent;
 
   FreshRecommendationCard(this.i, this.title, this.price, this.picUrl,
-      this.description, this.id, this.Category, this.Email,
+      this.description, this.id, this.Category, this.Email, this.sent,
       {super.key});
 
   @override
@@ -29,7 +30,7 @@ class FreshRecommendationCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: ((context) => FreshDetailScreen(
-                title, price, picUrl, description, id, Category, Email)),
+                title, price, picUrl, description, id, Category, Email, sent)),
           ),
         );
       },
@@ -47,20 +48,25 @@ class FreshRecommendationCard extends StatelessWidget {
               placeholder: (context, url) => const Icon(Icons.image),
               errorWidget: (context, url, error) => const Icon(Icons.image),
             ),
-            const SizedBox(
-              height: 4,
-            ),
-            Text(
-              title,
-              style: TextStyle(
-                color: Theme.of(context).primaryColor,
-                fontWeight: FontWeight.bold,
+            // const SizedBox(
+            //   height: 0,
+            // ),
+            Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: 10,
+                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-            const SizedBox(
-              height: 4,
+
+            Text(
+              "₹ $price",
+              softWrap: true,
             ),
-            Text("₹ $price"),
           ]),
         ),
       ),

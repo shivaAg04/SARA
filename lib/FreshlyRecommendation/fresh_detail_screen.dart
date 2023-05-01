@@ -15,11 +15,13 @@ class FreshDetailScreen extends StatelessWidget {
   String pic;
   String description;
   String id;
+
   String Category;
   String Email;
+  String sent;
 
   FreshDetailScreen(this.title, this.price, this.pic, this.description, this.id,
-      this.Category, this.Email,
+      this.Category, this.Email, this.sent,
       {super.key});
   late ChatUser productseller;
   Future<void> getuser(BuildContext context) async {
@@ -63,14 +65,16 @@ class FreshDetailScreen extends StatelessWidget {
                     style: TextStyle(
                         color: Colors.black87,
                         fontWeight: FontWeight.w500,
-                        fontSize: 18),
+                        fontSize: 15),
                   ),
                   Text(
                     title,
+                    softWrap: true,
                     style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
                 ],
               ),
@@ -93,6 +97,30 @@ class FreshDetailScreen extends StatelessWidget {
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 20),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: mq.height * .01,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Category: ',
+                    style: TextStyle(
+                        color: Colors.black87,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15),
+                  ),
+                  Text(
+                    Category,
+                    softWrap: true,
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
                 ],
               ),
@@ -147,11 +175,30 @@ class FreshDetailScreen extends StatelessWidget {
                 height: 30,
               ),
               ElevatedButton.icon(
-                  onPressed: () {
-                    getuser(context);
-                  },
-                  icon: const Icon(Icons.chat_outlined),
-                  label: const Text("Message"))
+                onPressed: () {
+                  getuser(context);
+                },
+                icon: const Icon(Icons.chat_outlined),
+                label: const Text("Message"),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              APIs.user.email == "shiva.2024cs1129@kiet.edu"
+                  ? ElevatedButton.icon(
+                      onPressed: () async {
+                        await APIs.firestore
+                            .collection("Products")
+                            .doc(sent)
+                            .delete();
+                        await APIs.storage.refFromURL(pic).delete();
+
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.delete),
+                      label: const Text("Delete"),
+                    )
+                  : SizedBox()
             ],
           ),
         ),

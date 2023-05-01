@@ -80,7 +80,8 @@ class BrowswProductColumn extends StatelessWidget {
                         list[i].Description,
                         list[i].Id,
                         list[i].Category,
-                        list[i].Email);
+                        list[i].Email,
+                        list[i].sent);
                   },
                 );
               } else {
@@ -89,7 +90,7 @@ class BrowswProductColumn extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Lottie.asset("assets/empty.json"),
-                      Text("No Ads"),
+                      const Text("No Ads"),
                     ],
                   ),
                 );

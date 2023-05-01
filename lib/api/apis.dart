@@ -56,7 +56,7 @@ class APIs {
         "notification": {
           "title": me.name, //our name should be send
           "body": msg,
-          // "android_channel_id": "chats"
+          "android_channel_id": "chats"
         },
         // "data": {
         //   "some_data": "User ID: ${me.id}",
@@ -67,11 +67,9 @@ class APIs {
           headers: {
             HttpHeaders.contentTypeHeader: 'application/json',
             HttpHeaders.authorizationHeader:
-                'key=AAAAQ0Bf7ZA:APA91bGd5IN5v43yedFDo86WiSuyTERjmlr4tyekbw_YW6JrdLFblZcbHdgjDmogWLJ7VD65KGgVbETS0Px7LnKk8NdAz4Z-AsHRp9WoVfArA5cNpfMKcjh_MQI-z96XQk5oIDUwx8D1'
+                'key=AAAAl5NKeY8:APA91bFO2H4I1LLCSkr-em80g3yO93eDFGxuORVeV7hDHIhWs8VSnVf98XwA-0fZVpnNmR3FK3slx5QA6BJy35S3ipX93Z8b1Aw79fs8jMHXek04Mr7CwKyUWIRmRZkOnBVixWWwd8He'
           },
           body: jsonEncode(body));
-      print('Response status: ${res.statusCode}///////////////////////////');
-      print('//////////////////////Response body: ${res.body}');
     } catch (e) {
       // log('\nsendPushNotificationE: $e');
     }
@@ -242,7 +240,7 @@ class APIs {
   static Future<void> updateProfilePicture(File file) async {
     final ext = file.path.split('.').last;
 
-    final ref = storage.ref().child('pp').child('${user.uid}.$ext');
+    final ref = storage.ref().child('profilePicture').child('${user.uid}.$ext');
 
     await ref
         .putFile(file, SettableMetadata(contentType: 'image/$ext'))
@@ -331,6 +329,7 @@ class APIs {
       ChatUser user) {
     return firestore
         .collection('chats/${getConversationID(user.id)}/messages/')
+        .orderBy('sent', descending: true)
         .limit(1)
         .snapshots();
   }

@@ -97,7 +97,8 @@ class _SearchBarScreenState extends State<SearchBarScreen> {
                           _foundProducts[index]["Description"],
                           _foundProducts[index]["Id"],
                           _foundProducts[index]["Category"],
-                          _foundProducts[index]["Email"]);
+                          _foundProducts[index]["Email"],
+                          _foundProducts[index]["sent"]);
                     },
                   )
                 : const Text(

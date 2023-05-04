@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kiet_olx/screens/screen_controller/bottom_navigation_bar.dart';
-import 'package:kiet_olx/screens/splash/start_login.dart';
+import 'package:kiet_olx/screens/home/splash/start_login.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../api/apis.dart';
+import '../../../api/apis.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class _SplashScreen extends State<SplashScreen> {
   @override
   void initState() {
     //set time to load the new page
-    Future.delayed(Duration(seconds: 4), () {
+    Future.delayed(Duration(seconds: 2), () {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
           systemNavigationBarColor: Colors.white,
@@ -86,6 +86,7 @@ class _SplashScreen extends State<SplashScreen> {
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
+                // "coming soon",
                 "Sell    And    Rent   App",
                 style: TextStyle(
                   color: Color.fromARGB(255, 1, 85, 129),

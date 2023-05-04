@@ -21,16 +21,6 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-Future<void> _launchURL(String url) async {
-  final Uri uri = Uri(scheme: "https", host: url);
-  if (!await launchUrl(
-    uri,
-    mode: LaunchMode.externalApplication,
-  )) {
-    throw "Can not launch url";
-  }
-}
-
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
@@ -59,107 +49,108 @@ class _HomeScreenState extends State<HomeScreen> {
     mq = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 255, 187, 85),
-              ),
-              child: Lottie.asset('assets/menu.json'),
-            ),
-            ListTile(
-              title: Row(
-                children: [
-                  CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: Image.asset("assets/images/chat.png")),
-                  SizedBox(
-                    width: mq.width * 0.04,
-                  ),
-                  const Text(
-                    'Messages',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 1, 85, 129),
-                    ),
-                  ),
-                ],
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => ChatHomeScreen()),
-                );
-              },
-            ),
-            ListTile(
-              title: Row(
-                children: [
-                  CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: Image.asset("assets/images/coding.png")),
-                  SizedBox(
-                    width: mq.width * 0.04,
-                  ),
-                  const Text(
-                    'About Shiva',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 1, 85, 129),
-                    ),
-                  ),
-                ],
-              ),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            SizedBox(
-              height: mq.height * .5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: Image.asset("assets/images/instagram.png")),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: GestureDetector(
-                          onTap: () async {
-                            const url =
-                                'https://www.youtube.com/c/ICC/featured';
 
-                            await canLaunchUrl(Uri.parse(url))
-                                ? await launchUrl(Uri.parse(url))
-                                : throw 'Could not launch $url';
-                          },
-                          child: Image.asset("assets/images/linkedin.png"))),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: Image.asset("assets/images/youtube.png")),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: Image.asset("assets/images/twitter (1).png")),
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
+      // drawer: Drawer(
+      //   child: ListView(
+      //     padding: EdgeInsets.zero,
+      //     children: [
+      //       DrawerHeader(
+      //         decoration: const BoxDecoration(
+      //           color: Color.fromARGB(255, 255, 187, 85),
+      //         ),
+      //         child: Lottie.asset('assets/menu.json'),
+      //       ),
+      //       ListTile(
+      //         title: Row(
+      //           children: [
+      //             CircleAvatar(
+      //                 backgroundColor: Colors.white,
+      //                 child: Image.asset("assets/images/chat.png")),
+      //             SizedBox(
+      //               width: mq.width * 0.04,
+      //             ),
+      //             const Text(
+      //               'Messages',
+      //               style: TextStyle(
+      //                 color: Color.fromARGB(255, 1, 85, 129),
+      //               ),
+      //             ),
+      //           ],
+      //         ),
+      //         onTap: () {
+      //           Navigator.pop(context);
+      //           Navigator.push(
+      //             context,
+      //             MaterialPageRoute(builder: (_) => ChatHomeScreen()),
+      //           );
+      //         },
+      //       ),
+      //       ListTile(
+      //         title: Row(
+      //           children: [
+      //             CircleAvatar(
+      //                 backgroundColor: Colors.white,
+      //                 child: Image.asset("assets/images/coding.png")),
+      //             SizedBox(
+      //               width: mq.width * 0.04,
+      //             ),
+      //             const Text(
+      //               'About Shiva',
+      //               style: TextStyle(
+      //                 color: Color.fromARGB(255, 1, 85, 129),
+      //               ),
+      //             ),
+      //           ],
+      //         ),
+      //         onTap: () {
+      //           // Update the state of the app.
+      //           // ...
+      //         },
+      //       ),
+      //       SizedBox(
+      //         height: mq.height * .5,
+      //       ),
+      //       Row(
+      //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //         children: [
+      //           Padding(
+      //             padding: const EdgeInsets.all(8.0),
+      //             child: CircleAvatar(
+      //                 backgroundColor: Colors.white,
+      //                 child: Image.asset("assets/images/instagram.png")),
+      //           ),
+      //           Padding(
+      //             padding: const EdgeInsets.all(8.0),
+      //             child: CircleAvatar(
+      //                 backgroundColor: Colors.white,
+      //                 child: GestureDetector(
+      //                     onTap: () async {
+      //                       const url =
+      //                           'https://www.youtube.com/c/ICC/featured';
+
+      //                       await canLaunchUrl(Uri.parse(url))
+      //                           ? await launchUrl(Uri.parse(url))
+      //                           : throw 'Could not launch $url';
+      //                     },
+      //                     child: Image.asset("assets/images/linkedin.png"))),
+      //           ),
+      //           Padding(
+      //             padding: const EdgeInsets.all(8.0),
+      //             child: CircleAvatar(
+      //                 backgroundColor: Colors.white,
+      //                 child: Image.asset("assets/images/youtube.png")),
+      //           ),
+      //           Padding(
+      //             padding: const EdgeInsets.all(8.0),
+      //             child: CircleAvatar(
+      //                 backgroundColor: Colors.white,
+      //                 child: Image.asset("assets/images/twitter (1).png")),
+      //           ),
+      //         ],
+      //       )
+      //     ],
+      //   ),
+      // ),
       appBar: AppBar(
         iconTheme: IconThemeData(
           color: Color.fromARGB(255, 1, 85, 129),
@@ -220,6 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 15,
           ),
+
           const Align(
               alignment: Alignment.topLeft,
               child: Padding(
@@ -232,6 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 10,
           ),
+
           Expanded(child: FreshlyProductColumn())
         ],
       ),

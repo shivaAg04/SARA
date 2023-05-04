@@ -14,6 +14,7 @@ class BrowswProductColumn extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.white,

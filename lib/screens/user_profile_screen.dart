@@ -13,7 +13,7 @@ import 'package:kiet_olx/helper/dialogs.dart';
 
 import 'package:kiet_olx/main.dart';
 import 'package:kiet_olx/model/chat_user.dart';
-import 'package:kiet_olx/screens/splash/start_login.dart';
+import 'package:kiet_olx/screens/home/splash/start_login.dart';
 
 class UserProfileScreen extends StatefulWidget {
   @override

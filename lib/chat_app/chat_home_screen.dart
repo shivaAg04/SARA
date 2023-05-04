@@ -54,17 +54,17 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
             ),
             backgroundColor: Colors.white,
             elevation: 0,
-            leading: IconButton(
-              icon: Icon(CupertinoIcons.home),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => CustomiseBottomNavigationBar(iindex: 1),
-                  ),
-                );
-              },
-            ),
+            // leading: IconButton(
+            //   icon: Icon(CupertinoIcons.home),
+            //   onPressed: () {
+            //     Navigator.pushReplacement(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (_) => CustomiseBottomNavigationBar(iindex: 1),
+            //       ),
+            //     );
+            //   },
+            // ),
             title: _issearching
                 ? TextField(
                     cursorColor: Colors.white,
@@ -91,10 +91,10 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                     children: [
                       // The text border
                       Text(
-                        'SARA',
+                        'Messages',
                         style: GoogleFonts.josefinSans(
                           fontSize: 27,
-                          letterSpacing: 6,
+                          letterSpacing: 3,
                           fontWeight: FontWeight.bold,
                           foreground: Paint()
                             ..style = PaintingStyle.stroke
@@ -104,10 +104,10 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                       ),
                       // The text inside
                       Text(
-                        'SARA',
+                        'Messages',
                         style: GoogleFonts.josefinSans(
                           fontSize: 27,
-                          letterSpacing: 6,
+                          letterSpacing: 3,
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).primaryColor,
                         ),
@@ -126,28 +126,28 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                     ? CupertinoIcons.clear_circled_solid
                     : Icons.search),
               ),
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => ProfileScreen(user: APIs.me),
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.more_vert),
-              ),
+              // IconButton(
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //         builder: (_) => ProfileScreen(user: APIs.me),
+              //       ),
+              //     );
+              //   },
+              //   icon: const Icon(Icons.more_vert),
+              // ),
             ],
           ),
-          floatingActionButton: Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: FloatingActionButton(
-              onPressed: () {
-                _addChatUserDialog();
-              },
-              child: const Icon(Icons.add_comment_outlined),
-            ),
-          ),
+          // floatingActionButton: Padding(
+          //   padding: const EdgeInsets.only(bottom: 20),
+          //   child: FloatingActionButton(
+          //     onPressed: () {
+          //       _addChatUserDialog();
+          //     },
+          //     child: const Icon(Icons.add_comment_outlined),
+          //   ),
+          // ),
           //body
           body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             stream: APIs.getMyUsersId(),

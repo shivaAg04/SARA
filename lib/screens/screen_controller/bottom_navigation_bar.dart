@@ -1,6 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 import 'package:flutter/material.dart';
+import 'package:kiet_olx/chat_app/chat_home_screen.dart';
 
 import 'package:kiet_olx/screens/home/home_screen.dart';
 import 'package:kiet_olx/screens/user_profile_screen.dart';
@@ -25,9 +26,10 @@ class _CustomiseBottomNavigationBar
 
   final List<Widget> _screenWidget = [
     // AdsControlScreen(),
+    ChatHomeScreen(),
     AdsScreen(),
     HomeScreen(),
-    UserProfileScreen()
+    UserProfileScreen(),
   ];
 
   @override
@@ -38,6 +40,11 @@ class _CustomiseBottomNavigationBar
         bottomNavigationBar: CurvedNavigationBar(
           index: i,
           items: const <Widget>[
+            Icon(
+              Icons.message,
+              size: 20,
+              color: Colors.white,
+            ),
             Icon(
               Icons.add_sharp,
               size: 20,
@@ -54,8 +61,9 @@ class _CustomiseBottomNavigationBar
               size: 20,
             ),
           ],
+
           animationDuration: const Duration(milliseconds: 300),
-          height: 50,
+          height: 55,
           onTap: (index) {
             setState(() {
               i = index;

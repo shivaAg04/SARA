@@ -8,9 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../api/apis.dart';
-import '../../helper/dialogs.dart';
-import '../screen_controller/bottom_navigation_bar.dart';
+import '../../../api/apis.dart';
+import '../../../helper/dialogs.dart';
+import '../../screen_controller/bottom_navigation_bar.dart';
 
 class StartLogin extends StatefulWidget {
   const StartLogin({super.key});
@@ -67,7 +67,7 @@ class _StartLoginState extends State<StartLogin> {
       // );
       // return await APIs.auth.signInWithCredential(credential);
       // Obtain the auth details from the request
-      if (googleUser!.email.endsWith("@kiet.edu")) {
+      if (googleUser.email.endsWith("@kiet.edu")) {
         final GoogleSignInAuthentication googleAuth =
             await googleUser.authentication;
 

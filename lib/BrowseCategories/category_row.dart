@@ -16,11 +16,15 @@ class CategooryRow extends StatelessWidget {
               chooseIcon: "book",
               chooseText: "Quantum"),
           CategoriesButton(
+              chooseColor: Color.fromARGB(255, 54, 235, 255),
+              chooseIcon: "d",
+              chooseText: "Decoration"),
+          CategoriesButton(
               chooseColor: Color.fromARGB(255, 255, 90, 241),
               chooseIcon: "air-cooler",
               chooseText: "Coolers"),
           CategoriesButton(
-              chooseColor: Color.fromARGB(255, 117, 244, 255),
+              chooseColor: Color.fromARGB(255, 0, 0, 0),
               chooseIcon: "lab-coat",
               chooseText: "Lab Coat"),
           CategoriesButton(

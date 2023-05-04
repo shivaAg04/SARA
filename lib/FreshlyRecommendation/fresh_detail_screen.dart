@@ -174,13 +174,15 @@ class FreshDetailScreen extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              ElevatedButton.icon(
-                onPressed: () {
-                  getuser(context);
-                },
-                icon: const Icon(Icons.chat_outlined),
-                label: const Text("Message"),
-              ),
+              APIs.user.email != Email
+                  ? ElevatedButton.icon(
+                      onPressed: () {
+                        getuser(context);
+                      },
+                      icon: const Icon(Icons.chat_outlined),
+                      label: const Text("Message"),
+                    )
+                  : SizedBox(),
               const SizedBox(
                 height: 10,
               ),

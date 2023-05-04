@@ -32,14 +32,15 @@ class EditedScreen extends StatefulWidget {
 
 class _EditedScreenState extends State<EditedScreen> {
   List dropDownListData = [
-    {"title": "SPORTS", "value": "Sports"},
-    {"title": "STATIONARY", "value": "Stationary"},
-    {"title": "ELECTRICAL", "value": "Electrical"},
-    {"title": "OTHERS", "value": "Others"},
+    {"title": "Sports", "value": "Sports"},
+    {"title": "Stationary", "value": "Stationary"},
+    {"title": "Electrical", "value": "Electrical"},
+    {"title": "Others", "value": "Others"},
     {"title": "Quantum", "value": "Quantum"},
     {"title": "Coolers", "value": "Coolers"},
     {"title": "Lab Coat", "value": "Lab Coat"},
     {"title": "Calculators", "value": "Calculators"},
+    {"title": "Decoration", "value": "Decoration"},
   ];
 
   String selectedCategory = "";
@@ -48,6 +49,9 @@ class _EditedScreenState extends State<EditedScreen> {
   bool _isUploading = false;
   sendtoserver(
       String serverTitle, String serverPrice, String serverDescription) async {
+    if (selectedCategory == "") {
+      selectedCategory = widget.Category;
+    }
     Map<String, dynamic> data = {
       "Title": serverTitle,
       "Price": serverPrice,
@@ -148,15 +152,16 @@ class _EditedScreenState extends State<EditedScreen> {
                   ),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton<String>(
-                      value: selectedCategory,
+                      value: widget.Category,
                       isDense: true,
                       isExpanded: true,
                       menuMaxHeight: 350,
                       items: [
-                        const DropdownMenuItem(
+                        DropdownMenuItem(
                           value: "",
                           child: Text(
                             "Select Category",
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
                         ...dropDownListData.map<DropdownMenuItem<String>>((e) {
@@ -195,8 +200,7 @@ class _EditedScreenState extends State<EditedScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: ElevatedButton(
                       onPressed: () async {
-                        if (_formKey.currentState!.validate() &&
-                            selectedCategory != "") {
+                        if (_formKey.currentState!.validate()) {
                           setState(() {
                             _isUploading = !_isUploading;
                           });
@@ -208,9 +212,10 @@ class _EditedScreenState extends State<EditedScreen> {
                           Dialogs.showSnackBar(context, "Updated Successfully");
 
                           Navigator.pop(context);
-                        } else {
-                          Dialogs.showSnackBar(context, "select Category");
                         }
+                        //  else {
+                        //   Dialogs.showSnackBar(context, "select Category");
+                        // }
                       },
                       child: _isUploading
                           ? const SizedBox(

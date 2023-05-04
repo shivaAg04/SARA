@@ -15,7 +15,7 @@ class FreshlyProductColumn extends StatelessWidget {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
       stream: FirebaseFirestore.instance
           .collection("Products")
-          .where("Id", isNotEqualTo: APIs.user.uid)
+          .orderBy('sent', descending: false)
           .snapshots(),
       builder: ((context, snapshot) {
         switch (snapshot.connectionState) {

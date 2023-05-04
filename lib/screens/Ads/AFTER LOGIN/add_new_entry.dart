@@ -20,17 +20,18 @@ class AddNewEntry extends StatefulWidget {
 
 class _AddNewEntryState extends State<AddNewEntry> {
   List dropDownListData = [
-    {"title": "SPORTS", "value": "Sports"},
-    {"title": "STATIONARY", "value": "Stationary"},
-    {"title": "ELECTRICAL", "value": "Electrical"},
-    {"title": "OTHERS", "value": "Others"},
+    {"title": "Sports", "value": "Sports"},
+    {"title": "Stationary", "value": "Stationary"},
+    {"title": "Electrical", "value": "Electrical"},
+    {"title": "Others", "value": "Others"},
     {"title": "Quantum", "value": "Quantum"},
     {"title": "Coolers", "value": "Coolers"},
     {"title": "Lab Coat", "value": "Lab Coat"},
     {"title": "Calculators", "value": "Calculators"},
+    {"title": "Decoration", "value": "Decoration"},
   ];
 
-  String? selectedCategory;
+  String selectedCategory = "";
   TextEditingController titlecontroller = TextEditingController();
 
   TextEditingController pricecontroller = TextEditingController();
@@ -74,6 +75,7 @@ class _AddNewEntryState extends State<AddNewEntry> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
         elevation: 0,
         backgroundColor: Colors.white,
         title: Stack(

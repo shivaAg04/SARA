@@ -43,7 +43,7 @@ class _StartLoginState extends State<StartLogin> {
                 context,
                 MaterialPageRoute(
                     builder: (_) => CustomiseBottomNavigationBar(
-                          iindex: 1,
+                          iindex: 2,
                         )));
           });
         }
@@ -60,13 +60,6 @@ class _StartLoginState extends State<StartLogin> {
       final GoogleSignInAuthentication googleAuth =
           await googleUser!.authentication;
 
-      // Create a new credential
-      // final credential = GoogleAuthProvider.credential(
-      //   accessToken: googleAuth.accessToken,
-      //   idToken: googleAuth.idToken,
-      // );
-      // return await APIs.auth.signInWithCredential(credential);
-      // Obtain the auth details from the request
       if (googleUser.email.endsWith("@kiet.edu")) {
         final GoogleSignInAuthentication googleAuth =
             await googleUser.authentication;
@@ -86,7 +79,7 @@ class _StartLoginState extends State<StartLogin> {
 
       // Once signed in, return the UserCredential
     } catch (e) {
-      Dialogs.showSnackBar(context, 'Something Went Wrong (Check Internet!)');
+      Dialogs.showSnackBar(context, 'Something Went Wrong');
       return null;
     }
   }

@@ -117,8 +117,8 @@ class _AddNewEntryState extends State<AddNewEntry> {
                 // IMAGE CAPTURE
                 InkWell(
                   onTap: () async {
-                    XFile? selectedImage = await ImagePicker()
-                        .pickImage(source: ImageSource.gallery);
+                    XFile? selectedImage = await ImagePicker().pickImage(
+                        source: ImageSource.gallery, imageQuality: 70);
 
                     if (selectedImage != null) {
                       File convertedFile = File(selectedImage.path);

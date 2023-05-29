@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kiet_olx/main.dart';
 import 'package:kiet_olx/screens/screen_controller/bottom_navigation_bar.dart';
 import 'package:kiet_olx/screens/home/splash/start_login.dart';
 import 'package:lottie/lottie.dart';
@@ -19,25 +20,27 @@ class _SplashScreen extends State<SplashScreen> {
   @override
   void initState() {
     //set time to load the new page
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(seconds: 3), () {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
           systemNavigationBarColor: Colors.white,
           statusBarColor: Colors.white));
-
-      if (APIs.auth.currentUser != null) {
-        //navigate to home screen
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (_) => CustomiseBottomNavigationBar(
-                      iindex: 1,
-                    )));
-      } else {
-        //navigate to login screen
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => const StartLogin()));
-      }
+      APIs.getSliderList().then((value) {
+        print(APIs.SliderList[0]);
+        if (APIs.auth.currentUser != null) {
+          //navigate to home screen
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => CustomiseBottomNavigationBar(
+                        iindex: 2,
+                      )));
+        } else {
+          //navigate to login screen
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (_) => const StartLogin()));
+        }
+      });
     });
 
     super.initState();
@@ -53,52 +56,52 @@ class _SplashScreen extends State<SplashScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // SizedBox(
-            //   height: 10,
-            // ),
-            Stack(
-              children: [
-                // The text border
-                Text(
-                  ' SARA ',
-                  style: GoogleFonts.josefinSans(
-                    fontSize: 40,
-                    letterSpacing: 15,
-                    fontWeight: FontWeight.bold,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 3
-                      ..color = Color.fromARGB(255, 1, 85, 129),
-                  ),
-                ),
-
-                Text(
-                  ' SARA ',
-                  style: GoogleFonts.josefinSans(
-                    fontSize: 40,
-                    letterSpacing: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 255, 102, 0),
-                  ),
-                ),
-              ],
+            SizedBox(
+              child: Image.asset("assets/images/logo.png"),
+              height: MediaQuery.of(context).size.height * .2,
             ),
-            Padding(
-              padding: EdgeInsets.all(8),
-              child: Text(
-                // "coming soon",
-                "Sell    And    Rent   App",
-                style: TextStyle(
-                  color: Color.fromARGB(255, 1, 85, 129),
-                ),
+            Text(
+              // "coming soon",
+              "Sell    And    Rent   App",
+              style: TextStyle(
+                color: Color.fromARGB(255, 1, 85, 129),
               ),
             ),
+
+            // Stack(
+            //   children: [
+            //     // The text border
+            //     Text(
+            //       ' SARA ',
+            //       style: GoogleFonts.josefinSans(
+            //         fontSize: 40,
+            //         letterSpacing: 15,
+            //         fontWeight: FontWeight.bold,
+            //         foreground: Paint()
+            //           ..style = PaintingStyle.stroke
+            //           ..strokeWidth = 3
+            //           ..color = Color.fromARGB(255, 1, 85, 129),
+            //       ),
+            //     ),
+
+            //     Text(
+            //       ' SARA ',
+            //       style: GoogleFonts.josefinSans(
+            //         fontSize: 40,
+            //         letterSpacing: 15,
+            //         fontWeight: FontWeight.bold,
+            //         color: Color.fromARGB(255, 255, 102, 0),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+
             //
             Container(child: Lottie.asset('assets/splash.json')),
             // SizedBox(height: 120),
 
             SizedBox(
-              height: 30,
+              height: MediaQuery.of(context).size.height * .02,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -121,3 +124,4 @@ class _SplashScreen extends State<SplashScreen> {
     );
   }
 }
+//majo

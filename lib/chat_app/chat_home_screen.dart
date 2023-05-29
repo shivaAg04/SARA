@@ -53,7 +53,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
               color: Color.fromARGB(255, 1, 85, 129),
             ),
             backgroundColor: Colors.white,
-            elevation: 0,
+            elevation: 2,
             // leading: IconButton(
             //   icon: Icon(CupertinoIcons.home),
             //   onPressed: () {
@@ -87,33 +87,37 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                       }
                     },
                   )
-                : Stack(
-                    children: [
-                      // The text border
-                      Text(
-                        'Messages',
-                        style: GoogleFonts.josefinSans(
-                          fontSize: 27,
-                          letterSpacing: 3,
-                          fontWeight: FontWeight.bold,
-                          foreground: Paint()
-                            ..style = PaintingStyle.stroke
-                            ..strokeWidth = 3
-                            ..color = Color.fromARGB(255, 1, 85, 129),
-                        ),
-                      ),
-                      // The text inside
-                      Text(
-                        'Messages',
-                        style: GoogleFonts.josefinSans(
-                          fontSize: 27,
-                          letterSpacing: 3,
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                    ],
+                : SizedBox(
+                    child: Image.asset("assets/images/messages.png"),
+                    height: MediaQuery.of(context).size.height * .15,
                   ),
+            // : Stack(
+            //     children: [
+            //       // The text border
+            //       Text(
+            //         'Messages',
+            //         style: GoogleFonts.josefinSans(
+            //           fontSize: 27,
+            //           letterSpacing: 3,
+            //           fontWeight: FontWeight.bold,
+            //           foreground: Paint()
+            //             ..style = PaintingStyle.stroke
+            //             ..strokeWidth = 3
+            //             ..color = Color.fromARGB(255, 1, 85, 129),
+            //         ),
+            //       ),
+            //       // The text inside
+            //       Text(
+            //         'Messages',
+            //         style: GoogleFonts.josefinSans(
+            //           fontSize: 27,
+            //           letterSpacing: 3,
+            //           fontWeight: FontWeight.bold,
+            //           color: Theme.of(context).primaryColor,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
             centerTitle: true,
             actions: [
               IconButton(

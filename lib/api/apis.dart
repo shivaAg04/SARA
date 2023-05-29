@@ -24,6 +24,18 @@ class APIs {
   static GoogleSignIn googleSignIn = GoogleSignIn();
   static User get user => auth.currentUser!;
   static late ChatUser me;
+  static List SliderList = ["", "", "", "", ""];
+
+  static Future<void> getSliderList() async {
+    var res = await firestore.collection('Slider').doc('pic').get();
+    Map<String, dynamic>? data = res.data();
+    SliderList[0] = data!['first'];
+    SliderList[1] = data['second'];
+    SliderList[2] = data['third'];
+    SliderList[3] = data['fourth'];
+    SliderList[4] = data['fifth'];
+  }
+
   static Future<bool> userExists() async {
     return (await firestore
             .collection('users')

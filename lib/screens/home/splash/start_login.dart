@@ -117,33 +117,37 @@ class _StartLoginState extends State<StartLogin> {
                     color: Color.fromARGB(255, 1, 85, 129),
                   ),
                 ),
-                Stack(
-                  children: [
-                    // The text border
-                    Text(
-                      'SARA ',
-                      style: GoogleFonts.josefinSans(
-                        fontSize: 30,
-                        letterSpacing: 6,
-                        fontWeight: FontWeight.bold,
-                        foreground: Paint()
-                          ..style = PaintingStyle.stroke
-                          ..strokeWidth = 3
-                          ..color = Color.fromARGB(255, 1, 85, 129),
-                      ),
-                    ),
-
-                    Text(
-                      'SARA ',
-                      style: GoogleFonts.josefinSans(
-                        fontSize: 30,
-                        letterSpacing: 6,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 255, 102, 0),
-                      ),
-                    ),
-                  ],
+                SizedBox(
+                  child: Image.asset("assets/images/logo.png"),
+                  height: MediaQuery.of(context).size.height * .11,
                 ),
+                // Stack(
+                //   children: [
+                //     // The text border
+                //     Text(
+                //       'SARA ',
+                //       style: GoogleFonts.josefinSans(
+                //         fontSize: 30,
+                //         letterSpacing: 6,
+                //         fontWeight: FontWeight.bold,
+                //         foreground: Paint()
+                //           ..style = PaintingStyle.stroke
+                //           ..strokeWidth = 3
+                //           ..color = Color.fromARGB(255, 1, 85, 129),
+                //       ),
+                //     ),
+
+                //     Text(
+                //       'SARA ',
+                //       style: GoogleFonts.josefinSans(
+                //         fontSize: 30,
+                //         letterSpacing: 6,
+                //         fontWeight: FontWeight.bold,
+                //         color: Color.fromARGB(255, 255, 102, 0),
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
             const SizedBox(height: 10.0),

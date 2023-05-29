@@ -36,7 +36,7 @@ class CategoriesButton extends StatelessWidget {
               backgroundColor: chooseColor,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Image.asset("assets/icons/$chooseIcon.png"),
+                child: Image.asset("assets/icon/icons/$chooseIcon.png"),
               ),
             ),
             Spacer(),

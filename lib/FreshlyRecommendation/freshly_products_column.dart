@@ -31,6 +31,9 @@ class FreshlyProductColumn extends StatelessWidget {
                 data?.map((e) => Products.fromJson(e.data())).toList() ?? [];
             if (list.isNotEmpty) {
               return GridView.builder(
+                physics:
+                    NeverScrollableScrollPhysics(), // to disable GridView's scrolling
+                shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                 ),

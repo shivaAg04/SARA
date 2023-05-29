@@ -25,35 +25,39 @@ class _AdsScreenState extends State<AdsScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 0,
+        elevation: 2,
         backgroundColor: Colors.white,
-        title: Stack(
-          children: [
-            // The text border
-            Text(
-              'MY ADS',
-              style: GoogleFonts.josefinSans(
-                fontSize: 25,
-                letterSpacing: 4,
-                fontWeight: FontWeight.bold,
-                foreground: Paint()
-                  ..style = PaintingStyle.stroke
-                  ..strokeWidth = 3
-                  ..color = Color.fromARGB(255, 1, 85, 129),
-              ),
-            ),
-            // The text inside
-            Text(
-              'MY ADS',
-              style: GoogleFonts.josefinSans(
-                fontSize: 25,
-                letterSpacing: 4,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-          ],
+        title: SizedBox(
+          child: Image.asset("assets/images/myads.png"),
+          height: MediaQuery.of(context).size.height * .14,
         ),
+        // title: Stack(
+        //   children: [
+        //     // The text border
+        //     Text(
+        //       'MY ADS',
+        //       style: GoogleFonts.josefinSans(
+        //         fontSize: 25,
+        //         letterSpacing: 4,
+        //         fontWeight: FontWeight.bold,
+        //         foreground: Paint()
+        //           ..style = PaintingStyle.stroke
+        //           ..strokeWidth = 3
+        //           ..color = Color.fromARGB(255, 1, 85, 129),
+        //       ),
+        //     ),
+        //     // The text inside
+        //     Text(
+        //       'MY ADS',
+        //       style: GoogleFonts.josefinSans(
+        //         fontSize: 25,
+        //         letterSpacing: 4,
+        //         fontWeight: FontWeight.bold,
+        //         color: Theme.of(context).primaryColor,
+        //       ),
+        //     ),
+        //   ],
+        // ),
         centerTitle: true,
         actions: [
           IconButton(

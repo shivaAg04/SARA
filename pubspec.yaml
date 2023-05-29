@@ -51,7 +51,7 @@ dependencies:
   gallery_saver: ^2.3.2 
   uuid: ^3.0.7
   url_launcher: ^6.1.10
- 
+  carousel_slider: ^4.2.1
   
   transparent_image: ^2.0.0
   cloud_firestore: ^4.5.0
@@ -105,7 +105,7 @@ flutter:
     - assets/welcome.json
     - assets/images/
     - assets/
-    - assets/icons/
+    - assets/icon/icons/
    
 
   # An image asset can refer to one or more resolution-specific "variants", see

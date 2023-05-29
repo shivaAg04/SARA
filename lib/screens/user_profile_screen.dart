@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kiet_olx/api/apis.dart';
@@ -14,6 +14,8 @@ import 'package:kiet_olx/helper/dialogs.dart';
 import 'package:kiet_olx/main.dart';
 import 'package:kiet_olx/model/chat_user.dart';
 import 'package:kiet_olx/screens/home/splash/start_login.dart';
+
+import 'Slider/slider.dart';
 
 class UserProfileScreen extends StatefulWidget {
   @override
@@ -39,7 +41,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     });
     try {
       await GoogleSignIn().disconnect();
-
+      APIs.updateActiveStatus(false);
       APIs.auth.signOut();
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => StartLogin()));
@@ -56,35 +58,39 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 0,
+        elevation: 2,
         backgroundColor: Colors.white,
-        title: Stack(
-          children: [
-            // The text border
-            Text(
-              'Profile Screen',
-              style: GoogleFonts.josefinSans(
-                fontSize: 27,
-                letterSpacing: 3,
-                fontWeight: FontWeight.bold,
-                foreground: Paint()
-                  ..style = PaintingStyle.stroke
-                  ..strokeWidth = 3
-                  ..color = Color.fromARGB(255, 1, 85, 129),
-              ),
-            ),
-
-            Text(
-              'Profile Screen',
-              style: GoogleFonts.josefinSans(
-                fontSize: 27,
-                letterSpacing: 3,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 255, 102, 0),
-              ),
-            ),
-          ],
+        title: SizedBox(
+          child: Image.asset("assets/images/profilep.png"),
+          height: MediaQuery.of(context).size.height * .15,
         ),
+        // title: Stack(
+        //   children: [
+        //     // The text border
+        //     Text(
+        //       'Profile Screen',
+        //       style: GoogleFonts.josefinSans(
+        //         fontSize: 27,
+        //         letterSpacing: 3,
+        //         fontWeight: FontWeight.bold,
+        //         foreground: Paint()
+        //           ..style = PaintingStyle.stroke
+        //           ..strokeWidth = 3
+        //           ..color = Color.fromARGB(255, 1, 85, 129),
+        //       ),
+        //     ),
+
+        //     Text(
+        //       'Profile Screen',
+        //       style: GoogleFonts.josefinSans(
+        //         fontSize: 27,
+        //         letterSpacing: 3,
+        //         fontWeight: FontWeight.bold,
+        //         color: Color.fromARGB(255, 255, 102, 0),
+        //       ),
+        //     ),
+        //   ],
+        // ),
         centerTitle: true,
       ),
       floatingActionButton: Padding(
@@ -252,7 +258,17 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             backgroundColor: Colors.black,
                             strokeWidth: 3,
                           ),
-                        ))
+                        )),
+              if (APIs.me.email == "shiva.2024cs1129@kiet.edu")
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => SliderControlScreen()),
+                      );
+                    },
+                    child: Text("Slider")),
             ]),
           ),
         ),

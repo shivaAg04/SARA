@@ -33,7 +33,6 @@ class APIs {
       isOnline: false,
       lastActive: '',
       pushToken: '');
-
   static List SliderList = ["", "", "", "", ""];
 
   static Future<void> getSliderList() async {
@@ -157,6 +156,7 @@ class APIs {
         mlist.add(cu);
       }
     }
+    mlist.reversed;
     yield mlist;
   }
 

@@ -104,14 +104,18 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                 //if data is loading
                 case ConnectionState.waiting:
                 case ConnectionState.none:
-                  return Center(child: Lottie.asset("assets/loading.json"));
+                  return Center(child: Lottie.asset("assets/loading1.json"));
 
                 //if some or all data is loaded then show it
                 case ConnectionState.active:
                 case ConnectionState.done:
                   return StreamBuilder<List<ChatUser>>(
-                    stream: APIs.getAllUsers(
-                        snapshot.data?.docs.map((e) => e.id).toList() ?? []),
+                    stream: APIs.getAllUsers(snapshot.data?.docs
+                            .map((e) => e.id)
+                            .toList()
+                            .reversed
+                            .toList() ??
+                        []),
 
                     //get only those user, who's ids are provided
                     builder: (context, snapshot) {
@@ -120,7 +124,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                         case ConnectionState.waiting:
                         case ConnectionState.none:
                           return Center(
-                              child: Lottie.asset("assets/loading.json"));
+                              child: Lottie.asset("assets/loading1.json"));
 
                         //if some or all data is loaded then show it
                         case ConnectionState.active:
@@ -140,10 +144,8 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                                           : _list[index]);
                                 });
                           } else {
-                            return const Center(
-                              child: Text('No Connections Found!',
-                                  style: TextStyle(fontSize: 20)),
-                            );
+                            return Center(
+                                child: Lottie.asset("assets/emptyy.json"));
                           }
                       }
                     },

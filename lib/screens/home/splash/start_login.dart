@@ -35,7 +35,7 @@ class _StartLoginState extends State<StartLogin> {
               context,
               MaterialPageRoute(
                   builder: (_) => CustomiseBottomNavigationBar(
-                        iindex: 1,
+                        iindex: 2,
                       )));
         } else {
           await APIs.creatUser().then((value) {

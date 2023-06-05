@@ -31,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     APIs.getSliderList();
     APIs.updateActiveStatus(true);
     APIs.getSelfInfo();
+    APIs.getMyUsersId();
     //for updating user active status according to lifecycle events
     //resume -- active or online
     //pause  -- inactive or offline
@@ -219,77 +220,77 @@ Widget upper() {
             margin: EdgeInsets.all(6.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
-              image: DecorationImage(
-                image: NetworkImage(
-                    "https://drive.google.com/uc?export=view&id=${APIs.SliderList[0]}"),
-                fit: BoxFit.cover,
-              ),
+              // image: DecorationImage(
+              //   image: NetworkImage(
+              //       "https://drive.google.com/uc?export=view&id=${APIs.SliderList[0]}"),
+              //   fit: BoxFit.cover,
+              // ),
             ),
           ),
 
           //2nd Image of Slider
           Container(
-            // child: CachedNetworkImage(
-            //   imageUrl:
-            //       "https://drive.google.com/uc?export=view&id=${APIs.SliderList[1]}",
-            //   fit: BoxFit.cover,
-            //   placeholder: (context, url) =>
-            //       Center(child: const CircularProgressIndicator()),
-            //   errorWidget: (context, url, error) =>
-            //       Center(child: const CircularProgressIndicator()),
-            // ),
+            child: CachedNetworkImage(
+              imageUrl:
+                  "https://drive.google.com/uc?export=view&id=${APIs.SliderList[1]}",
+              fit: BoxFit.cover,
+              placeholder: (context, url) =>
+                  Center(child: const CircularProgressIndicator()),
+              errorWidget: (context, url, error) =>
+                  Center(child: const CircularProgressIndicator()),
+            ),
             margin: EdgeInsets.all(6.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
-              image: DecorationImage(
-                image: NetworkImage(
-                    "https://drive.google.com/uc?export=view&id=${APIs.SliderList[1]}"),
-                fit: BoxFit.cover,
-              ),
+              // image: DecorationImage(
+              //   image: NetworkImage(
+              //       "https://drive.google.com/uc?export=view&id=${APIs.SliderList[1]}"),
+              //   fit: BoxFit.cover,
+              // ),
             ),
           ),
 
           //3rd Image of Slider
           Container(
-            // child: CachedNetworkImage(
-            //   imageUrl:
-            //       "https://drive.google.com/uc?export=view&id=${APIs.SliderList[2]}",
-            //   fit: BoxFit.cover,
-            //   placeholder: (context, url) =>
-            //       Center(child: const CircularProgressIndicator()),
-            //   errorWidget: (context, url, error) =>
-            //       Center(child: const CircularProgressIndicator()),
-            // ),
+            child: CachedNetworkImage(
+              imageUrl:
+                  "https://drive.google.com/uc?export=view&id=${APIs.SliderList[2]}",
+              fit: BoxFit.cover,
+              placeholder: (context, url) =>
+                  Center(child: const CircularProgressIndicator()),
+              errorWidget: (context, url, error) =>
+                  Center(child: const CircularProgressIndicator()),
+            ),
             margin: EdgeInsets.all(6.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
-              image: DecorationImage(
-                image: NetworkImage(
-                    "https://drive.google.com/uc?export=view&id=${APIs.SliderList[2]}"),
-                fit: BoxFit.cover,
-              ),
+              // image: DecorationImage(
+              //   image: NetworkImage(
+              //       "https://drive.google.com/uc?export=view&id=${APIs.SliderList[2]}"),
+              //   fit: BoxFit.cover,
+              // ),
             ),
           ),
 
           //4th Image of Slider
           Container(
-            // child: CachedNetworkImage(
-            //   imageUrl:
-            //       "https://drive.google.com/uc?export=view&id=${APIs.SliderList[3]}",
-            //   fit: BoxFit.cover,
-            //   placeholder: (context, url) =>
-            //       Center(child: const CircularProgressIndicator()),
-            //   errorWidget: (context, url, error) =>
-            //       Center(child: const CircularProgressIndicator()),
-            // ),
+            child: CachedNetworkImage(
+              imageUrl:
+                  "https://drive.google.com/uc?export=view&id=${APIs.SliderList[3]}",
+              fit: BoxFit.cover,
+              placeholder: (context, url) =>
+                  Center(child: const CircularProgressIndicator()),
+              errorWidget: (context, url, error) =>
+                  Center(child: const CircularProgressIndicator()),
+            ),
             margin: EdgeInsets.all(6.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
-              image: DecorationImage(
-                image: NetworkImage(
-                    "https://drive.google.com/uc?export=view&id=${APIs.SliderList[3]}"),
-                fit: BoxFit.cover,
-              ),
+              // image: DecorationImage(
+              //   image: NetworkImage(
+              //       "https://drive.google.com/uc?export=view&id=${APIs.SliderList[3]}"),
+              //   fit: BoxFit.cover,
+              // ),
             ),
           ),
 
@@ -297,22 +298,22 @@ Widget upper() {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
-              image: DecorationImage(
-                image: NetworkImage(
-                    "https://drive.google.com/uc?export=view&id=${APIs.SliderList[4]}"),
-                fit: BoxFit.cover,
-              ),
+              // image: DecorationImage(
+              //   image: NetworkImage(
+              //       "https://drive.google.com/uc?export=view&id=${APIs.SliderList[4]}"),
+              //   fit: BoxFit.cover,
+              // ),
             ),
-            // child: CachedNetworkImage(
-            //   fadeInCurve: Curves.ease,
-            //   imageUrl:
-            //       "https://drive.google.com/uc?export=view&id=${APIs.SliderList[4]}",
-            //   fit: BoxFit.cover,
-            //   placeholder: (context, url) =>
-            //       Center(child: const CircularProgressIndicator()),
-            //   errorWidget: (context, url, error) =>
-            //       Center(child: const CircularProgressIndicator()),
-            // ),
+            child: CachedNetworkImage(
+              fadeInCurve: Curves.ease,
+              imageUrl:
+                  "https://drive.google.com/uc?export=view&id=${APIs.SliderList[4]}",
+              fit: BoxFit.cover,
+              placeholder: (context, url) =>
+                  Center(child: const CircularProgressIndicator()),
+              errorWidget: (context, url, error) =>
+                  Center(child: const CircularProgressIndicator()),
+            ),
             margin: EdgeInsets.all(2.0),
           ),
         ],

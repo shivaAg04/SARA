@@ -8,6 +8,7 @@ import 'package:kiet_olx/chat_app/profile_screen.dart';
 import 'package:kiet_olx/main.dart';
 import 'package:kiet_olx/model/chat_user.dart';
 import 'package:kiet_olx/widgets/chat_user_card.dart';
+import 'package:lottie/lottie.dart';
 
 import '../helper/dialogs.dart';
 import '../screens/screen_controller/bottom_navigation_bar.dart';
@@ -54,17 +55,6 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
             ),
             backgroundColor: Colors.white,
             elevation: 2,
-            // leading: IconButton(
-            //   icon: Icon(CupertinoIcons.home),
-            //   onPressed: () {
-            //     Navigator.pushReplacement(
-            //       context,
-            //       MaterialPageRoute(
-            //         builder: (_) => CustomiseBottomNavigationBar(iindex: 1),
-            //       ),
-            //     );
-            //   },
-            // ),
             title: _issearching
                 ? TextField(
                     cursorColor: Colors.white,
@@ -91,33 +81,6 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                     child: Image.asset("assets/images/messages.png"),
                     height: MediaQuery.of(context).size.height * .15,
                   ),
-            // : Stack(
-            //     children: [
-            //       // The text border
-            //       Text(
-            //         'Messages',
-            //         style: GoogleFonts.josefinSans(
-            //           fontSize: 27,
-            //           letterSpacing: 3,
-            //           fontWeight: FontWeight.bold,
-            //           foreground: Paint()
-            //             ..style = PaintingStyle.stroke
-            //             ..strokeWidth = 3
-            //             ..color = Color.fromARGB(255, 1, 85, 129),
-            //         ),
-            //       ),
-            //       // The text inside
-            //       Text(
-            //         'Messages',
-            //         style: GoogleFonts.josefinSans(
-            //           fontSize: 27,
-            //           letterSpacing: 3,
-            //           fontWeight: FontWeight.bold,
-            //           color: Theme.of(context).primaryColor,
-            //         ),
-            //       ),
-            //     ],
-            //   ),
             centerTitle: true,
             actions: [
               IconButton(
@@ -130,29 +93,8 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                     ? CupertinoIcons.clear_circled_solid
                     : Icons.search),
               ),
-              // IconButton(
-              //   onPressed: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //         builder: (_) => ProfileScreen(user: APIs.me),
-              //       ),
-              //     );
-              //   },
-              //   icon: const Icon(Icons.more_vert),
-              // ),
             ],
           ),
-          // floatingActionButton: Padding(
-          //   padding: const EdgeInsets.only(bottom: 20),
-          //   child: FloatingActionButton(
-          //     onPressed: () {
-          //       _addChatUserDialog();
-          //     },
-          //     child: const Icon(Icons.add_comment_outlined),
-          //   ),
-          // ),
-          //body
           body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             stream: APIs.getMyUsersId(),
 
@@ -162,12 +104,12 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                 //if data is loading
                 case ConnectionState.waiting:
                 case ConnectionState.none:
-                  return const Center(child: CircularProgressIndicator());
+                  return Center(child: Lottie.asset("assets/loading.json"));
 
                 //if some or all data is loaded then show it
                 case ConnectionState.active:
                 case ConnectionState.done:
-                  return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                  return StreamBuilder<List<ChatUser>>(
                     stream: APIs.getAllUsers(
                         snapshot.data?.docs.map((e) => e.id).toList() ?? []),
 
@@ -177,18 +119,13 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                         //if data is loading
                         case ConnectionState.waiting:
                         case ConnectionState.none:
-                        // return const Center(
-                        //     child: CircularProgressIndicator());
+                          return Center(
+                              child: Lottie.asset("assets/loading.json"));
 
                         //if some or all data is loaded then show it
                         case ConnectionState.active:
                         case ConnectionState.done:
-                          final data = snapshot.data?.docs;
-                          _list = data
-                                  ?.map((e) => ChatUser.fromJson(e.data()))
-                                  .toList() ??
-                              [];
-
+                          _list = snapshot.data!;
                           if (_list.isNotEmpty) {
                             return ListView.builder(
                                 itemCount: _issearching

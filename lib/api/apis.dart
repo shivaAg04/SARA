@@ -23,7 +23,17 @@ class APIs {
 
   static GoogleSignIn googleSignIn = GoogleSignIn();
   static User get user => auth.currentUser!;
-  static late ChatUser me;
+  static ChatUser me = ChatUser(
+      id: user.uid,
+      name: user.displayName.toString(),
+      email: user.email.toString(),
+      about: "Hey, I'm SARA!",
+      image: user.photoURL.toString(),
+      createdAt: '',
+      isOnline: false,
+      lastActive: '',
+      pushToken: '');
+
   static List SliderList = ["", "", "", "", ""];
 
   static Future<void> getSliderList() async {
@@ -138,18 +148,16 @@ class APIs {
   }
 
   // for getting all users from firestore database
-  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllUsers(
-      List<String> userIds) {
-    print('\nUserIds: $userIds');
-
-    return firestore
-        .collection('users')
-        .where('id',
-            whereIn: userIds.isEmpty
-                ? ['']
-                : userIds) //because empty list throws an error
-        // .where('id', isNotEqualTo: user.uid)
-        .snapshots();
+  static Stream<List<ChatUser>> getAllUsers(List<String> userIds) async* {
+    List<ChatUser> mlist = [];
+    for (var str in userIds) {
+      var mdata = await firestore.collection('users').doc(str).get();
+      if (mdata != null) {
+        ChatUser cu = ChatUser.fromJson(mdata.data()!);
+        mlist.add(cu);
+      }
+    }
+    yield mlist;
   }
 
   // google login
@@ -306,7 +314,7 @@ class APIs {
     final ref = firestore
         .collection('chats/${getConversationID(chatUser.id)}/messages/');
     await ref.doc(time).set(message.toJson()).then((value) {
-      sendPushNotification(chatUser, type == Type.text ? msg : "image");
+      // sendPushNotification(chatUser, type == Type.text ? msg : "image");
     });
   }
 

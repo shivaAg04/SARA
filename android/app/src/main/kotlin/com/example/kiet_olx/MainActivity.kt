@@ -1,4 +1,4 @@
-package com.example.kiet_olx
+package com.sara.kietolx
 
 import io.flutter.embedding.android.FlutterActivity
 

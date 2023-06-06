@@ -55,7 +55,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBy3jDIVCRsoO7ohNMbrWMs2FJofjK7-bU',
-    appId: '1:651011193231:android:9ed1a24baa3507bc2e73fa',
+    appId: '1:651011193231:android:69e49371116d53ad2e73fa',
     messagingSenderId: '651011193231',
     projectId: 'kiet-olx',
     storageBucket: 'kiet-olx.appspot.com',
@@ -67,6 +67,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '651011193231',
     projectId: 'kiet-olx',
     storageBucket: 'kiet-olx.appspot.com',
+    androidClientId: '651011193231-cesd5ag8vhfon7hr27tofvudq0q5at0g.apps.googleusercontent.com',
     iosClientId: '651011193231-8h5of7ct9ofkoj41huf7cphck3igccsk.apps.googleusercontent.com',
     iosBundleId: 'com.example.kietOlx',
   );
@@ -77,6 +78,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '651011193231',
     projectId: 'kiet-olx',
     storageBucket: 'kiet-olx.appspot.com',
+    androidClientId: '651011193231-cesd5ag8vhfon7hr27tofvudq0q5at0g.apps.googleusercontent.com',
     iosClientId: '651011193231-8h5of7ct9ofkoj41huf7cphck3igccsk.apps.googleusercontent.com',
     iosBundleId: 'com.example.kietOlx',
   );

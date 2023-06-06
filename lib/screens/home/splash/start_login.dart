@@ -60,7 +60,8 @@ class _StartLoginState extends State<StartLogin> {
       final GoogleSignInAuthentication googleAuth =
           await googleUser!.authentication;
 
-      if (googleUser.email.endsWith("@kiet.edu")) {
+      if (googleUser.email.endsWith("@kiet.edu") ||
+          googleUser.email == "sara12sara04@gmail.com") {
         final GoogleSignInAuthentication googleAuth =
             await googleUser.authentication;
 
@@ -114,33 +115,6 @@ class _StartLoginState extends State<StartLogin> {
                   child: Image.asset("assets/images/logo.png"),
                   height: MediaQuery.of(context).size.height * .11,
                 ),
-                // Stack(
-                //   children: [
-                //     // The text border
-                //     Text(
-                //       'SARA ',
-                //       style: GoogleFonts.josefinSans(
-                //         fontSize: 30,
-                //         letterSpacing: 6,
-                //         fontWeight: FontWeight.bold,
-                //         foreground: Paint()
-                //           ..style = PaintingStyle.stroke
-                //           ..strokeWidth = 3
-                //           ..color = Color.fromARGB(255, 1, 85, 129),
-                //       ),
-                //     ),
-
-                //     Text(
-                //       'SARA ',
-                //       style: GoogleFonts.josefinSans(
-                //         fontSize: 30,
-                //         letterSpacing: 6,
-                //         fontWeight: FontWeight.bold,
-                //         color: Color.fromARGB(255, 255, 102, 0),
-                //       ),
-                //     ),
-                //   ],
-                // ),
               ],
             ),
             const SizedBox(height: 10.0),
